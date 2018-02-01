@@ -1,0 +1,394 @@
+Hello
+why is pet bot not working?
+Eli trying to sleep b/c he has the flu. You all can deal with him in the mean time.
+I know someone who’s clan  world is 42. They’re in “ash”
+But why
+oh raxi
+those headphones you sent me are totally wired
+yeah that's fine.  I found some cheap enough ones that look fine.
+oh yeah, the other shit.  they're great!!
+shit raxi I just realized that the headphones you showed me are wired, I was looking for wireless D=
+and those are good headphones?  or at least a good maker?
+alright, thank you very much
+Thoughts on this update? I think it's good tbh.
+Who gay?
+<@!307200844078645258> bot says different
+feelsbadman
+685 kc rn.  let's see how long it takes to complete the log
+Does anyone have a revo++ bar for graardor?  I need a new afk boss for at work
+I figured melee
+How or why would you take all of that into wildy?
+and so their "lure" was making the dude think it'd be a fair fight but having a bunch of dudes standing on the same space?
+<@!136806558901207040> I totally capped
+That means I'm in for the raffle, right?
+rip
+I guess I could just have it done manually.
+$pet 333 1000 100
+so that'd be 100 hard mode kills after 2k regular mode, not taking into account regular mode miss percentage
+$pet gwd1 2000
+$pet gwd 2000
+rip
+I thought bot was back?
+but telosbot was back
+<@!195930082924167168> they finally addressed the hit box for transmorgified stuff
+Hey math, is there any way to adjust it for gwd1 to where you can put in your thresh level and your hm kc to get a rate?
+like if I wanna check 100 hm kills but I have thousands of regular kills
+yes
+but it'd be very specific?
+Like it'd require you to keep track of the order for it to be accurate?
+Alright.  I'm bout to switch to hard mode for zily b/c I'm about to get to second thresh
+prob close enough
+$pet 1000 1000 2100
+that's not quite right
+hmmm
+So according to that post, it’d take me 194 hours of ge rc to get rue.
+Since at 99 it’s 48xp per drop, a drop every 2.4 seconds, modifier of 28, and virtual level 100.
+If abyss rc bonus does count toward base do for pet, that’s about 94k per full crafting at 99 without urns. Divide that by 28 and you get ~3357. So just do that times virtual level divided by 50m to get chance or the inverse of that answer to get the number of full crafts it should take.
+So for me that’s about 149 crafts on full soul altar or around 37.5 more hours.
+I don’t know if sarcasm or not. I can math out bloods later.
+The biggest issue I'm having rn calculating rue pet chance is that wiki only gives xp per hour thorugh abyss, not per drop.  But if you want to figure it out on your own, it's [(base xp per drop which according to milow includes abyss bonus but excludes demonic skull)/28*virtual level or 320 if you're 200m]/50m
+yeah that
+so that's over 100k/drop from souls through abyss with skull.  at 100 rc (me) that's about 140 trips to hit the 1/x chance
+or around .7% chance each drop at 100 rc
+and around .86% each drop at 120 rc
+but a ~2.28% chance each drop at 200m
+there's even a bot that agrees that woahmens is a dumb name
+it doesn't do what I tell it to
+So just to confirm the post in announcements is bs, right?
+hmmm
+I don't know if I believe
+but I guess I'll wait and see
+also memers is such a better name than whoamens
+or whatver it is
+Woahmens
+so have them join you
+memers better name
+what level cit do they have?
+well you should def have them join memers instead of joining woahmens b/c that's a dumb name
+gosh schep
+significant others
+well at least a little bit
+s/o
+yes
+that's how you do it in american
+exactly^
+only if you ask nicely 😉
+now you see that's wrong though
+😉 😉 😉 😉 😉 😉 😉 😉 😉
+I'm totally gonna fall asleep in my class
+I'm so tired
+😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉 😉
+rip
+message was deleted
+what are those
+so wait schep is an actual thing?
+o shit
+
+I don't know what kind of scheps those are though
+they don't look like ones near me
+student pretty sure
+hi schep
+and is it bad that I started typing "stupid" instead of "student"
+SEE I KNOW ABOUT MY S/OS
+I'm always in for raids as long as I'm not busy irl
+I know not clannie but still
+Also need to learn jw so schep doesn't reeeee at me again
+<@348616637965926401> I have class from 1330 game time to 1520, but I'm free after that.  or like right now.
+but wouldn't that be backwards?
+But....... god people are stupid
+Works for me.  I'll let you know when I'm free.
+just wants to make sur eno one kills them
+did you all walk to kbd lair too?
+I don’t think it takes into account the threshold from the normal mode kills.
+$pet hm gwd1 3376
+That’s more like it
+Threshold for both is 1000, correct?
+Both modes?
+So what’s the new meme going to be now that schep got Tess and raxi got Ralph? Yeah milow doesn’t have ace but he doesn’t bitch about it enough for it to@be funny. I don’t have kc high enough to complain about zily pet yet. Raxi and chickarra is all I can think of. Any others?
+what bossing is being done?
+<@!215610241834811393> share I gled yesterday and gave rocktail soups
+no?
+$pet telos 1794
+gz schep
+those odds
+that's funny
+I like little things like that
+yes, I want you dylie
+right chat
+does the bot have a hard mode calculator?
+$gwd1 hm 1000
+$pet gwd1 1000
+gotta unlock it first.
+I'm using cywir wand right now.  is that not good enough?
+So that’s a yes. I was also told that it and orb are for applying debuffs since de autos are much faster than staff so more chances to apply.
+but that's pretty secondary to just shield dps/basing?  and can use flanking switch (virt book) for now?
+I need to spooder but I have school work
+urg
+less than a day and a half more of spooder that I'll do
+$pet gwd1 1000
+it's gonna take me forever to get zily title...
+$pet gwd1 2000
+Is it worth getting seismic wand and augmenting it if I don't have off-hand nor as3 to put on it yet?
+what's the vial?
+Fuck off memebot
+hey it worked, just delayed
+Hey schep can you send me your setups for telos?
+if I watch guides and shit, how hard is sub 100 with nihil?
+But I want to say both
+But probably yak to start
+Hey <@!288667307356454912> what's your setup for telos?
+no with a good weapon
+also I realized that I didn't actually have a pxex on my nox staff for the past months
+I've been using it with just as3...
+so I have nox, crweyre wand for pf switch and shield with t3 on it
+and aug t88 armor
+the damage scrim yeh?
+so all I'm missing from that list is dreadnips
+I have the rest at least most of the time
+man if I get telos sub 100% enrage
+*get tess
+maybe I'll try a kill or two instead of going to raxi with maniacal
+I totally forgot that bot does that...
+rip
+is gameblast hosted by jagex or... not?
+I mean I don't know these things
+I'm really not trying to be funny....
+I...
+alright.
+I still didn't get a straight response btw.  Is gameblast hosted by jagex or does jagex just always have dxpw/some event over gameblast
+Okay, so it's a nonprofit or something and major game studios/twitch based in the UK and Jagex has dxpws over the weekend to raise awareness/money
+start stocking up!!!!
+or selling since everyone else is gonna be stocking up
+also source?
+so that's gameblast, it doesn't mention dxpw though
+Probably but I'm almost 26 so it's pretty awkward to get diagnosed now
+Please explain instead of just being insulting
+pet chance bot is borken and is making me sad
+Okay, I have given up caring because apparently I can’t get any new pets.
+Hey schep wanna raid in like 10 minutes?
+You’re not schep.
+So is that a yes or a no?
+Okay. Well I’m taking my dog for a walk and I’ll be free. Should be less than 10 minutes.
+That’s fine. I just unlocked so I have two resets anyway
+Plus I really should go to sleep. I have work in like five hours and have been awake for 24
+Cob is currently a clannie of mine
+no
+speaking of jew fro, I need a haircut soon
+reported asking for updoots
+So imma head off and be back on later
+not a case study, have to read an article and basically summarize it
+damn, a clannie just got bm pet, now has both bm and yaka pet at under 100 kc
+^
+well
+national debt is a decent thing
+but citizens having so much debt isn't as much
+though having debt b/c we give the richest amongst us tax breaks isn't the best option
+b/c ofc trickle down economics works amiright?
+well they did give us trump
+man I barely remember a time pre-putin
+Luxembourg D=
+alright I love you all and I enjoy this kind of conversation but I really need to be finishing an essay on presidential character
+but you find a middle aged hispanic person from cuba or mexico or central america
+they'll work their ass off for $10 an hour
+yeah, those who bitch about other races do 😛
+dolebludgers?
+no...
+I've neber heard that term
+I understand enough where it comes from but.....
+idk I think it's used as an insult more than anything
+like I agree that people should be allowed to identify how they want.  I think some of them might go overboard, but hey you do you boo
+I think that attacking others for being their gender/race is dumb
+you right that is really bad
+what fake problems do you think they have?
+I would argue that they are
+you right
+I'm not saying you are, but arguing that a minority isn't discriminated against tends to lead to sounding racist, even if unintentional
+I think we should stop before this gets heated b/c I still think they are
+maybe not by you or me, but anti-discrimination laws are still needed
+I think those blacks get into the sjw area
+the loud minority
+so do poor white republicans 😛
+that's a lower class thing
+^
+you know what race I've found doesn't like to be seen as victims
+hispanics
+I especially immigrants
+like some of the younger hooder ones aren't the best
+define classic liberal
+well what would you say are the "core libearl values"?
+I agree
+I think everyone who is of sound mind and free from the criminal background should be given the chance to own a gun
+<@!215610241834811393> jew btw
+And I agree with luke that it's not my business
+btw I hate the term sjw.
+florida is more right leaning, virginia is more left leaning, and nc is all kinds of fucked up
+I think the establisment democrats have lost their way
+Tbh I think there needs to be 4 political parties
+the sanders democrats, the clintonites, the romney republicans, and the tea partiers/trumpers
+totally don't let me fix Romney's name
+tbh I don't think they've let sjws take over the party.  they may be a loud part, but if you look at those in office, I would argue that they are far from sjw
+you right, but they don't view themselves that way, it's cognitive disonance that makes them vote against their self interest
+I've done a lot of reading/research about this since I am going to get into politics
+you right
+I like retarted better.  There are a lot of them just too ignorant to realize that they are just hurting themselves
+become president
+no like actually
+I can understand some liberatarian ideals and I think it'd be nice, but I feel that the free market doesn't work with that little regulation
+same^
+"what is allepo?!"
+nah but I still have a ways to go.  still gotta figure out if I'm gonna start my political career in florida, nc, or va
+I consider myself a moderate democrat
+yes dyli
+disable it through e-mail and reenable it on new phone
+I had to do that when I switched phones too
+ironmen are republicans b/c they do everything for themselves
+they think no one should get handouts b/c they don't need
+no, there are just "temporarily embarassed millionaire" republicans
+that's how they view themselves
+now then just need to raise max cash so dyes and shit can get fair prices
+also
+
+
+extremes are just extreme X for all
+so
+
+
+
+
+
+why jagex
+literally 5 pictures
+supers
+attack, strength, def are just super X
+ranging and magic are super X potion
+jagex, y
+literally unplayable
+oh
+isn't yanille lode faster?
+that's what I usually do for that palm
+and yeah lotd is fast for spirit tree which you can get to tree gnome and brim palm
+and for ease you can spirit tree to gnome place north of yanille and have the dude lead you out of maze and boom right htere
+I know it first you say adamantly distance and you use freedom anticipated some point to make sure that you don’t get dragged into the middle. I know that during shadow phase you move when a shadow is under you. I know during blood phase you sit use bleeds at some point and you don’t attack (I think) when she says a siphon will solve this.
+Hu
+Hi
+How hard is it to actually solo nex and and make profit?
+Solo kills are what? Between three and five minutes?
+Like me
+Who sucks
+Like 20 or so, yeah. Doesn’t mean know what I’m doing. I know not to use bleeds on one part and on the first part to keep moving so that I don’t get hit by shadows.
+Actually come to think of it I probably know at least a fair amount of what I’m doing.
+Seeds
+Depends on if you’re using lunar spells or not.
+You can use lunar spells instead of carrying super compost, and you can also use them to skip growth steps for most things. Are you only doing trees or are you doing herbs as well?
+Why slayer cape for trees? That only helps you with the tav one
+Otherwise luck of the dwarves is better because you can use it to get to spirit trees east
+Easy
+Also remember that it’s only worth paying for protection on palm trees. And you can use noted items to pay for it, they don’t have to be unnoted
+It’s better just to use the Crystal teleport seed since you can use it to get to trah for magic and meil for palm. If you really want to, you can use it to get to the herb patch in crwys too
+Plus it gets you to the palm tree patch in llyeta
+https://cdn.discordapp.com/attachments/198640292189044736/385365587796295680/unknown.png
+that legacy interface D=
+that's actually a thing?
+hmmmmm
+I need to check that out b/c I'm looking for a new boss to afk while at work
+whta wep?  scythe?
+that seems really good
+why don't more poeple do that?
+also glue said to meet him in the schep zone.  no idea what he's talking about
+do you pray anything or no?
+Excuse me, can we keep this chat in American to be inclusive of all here?  I'm getting pretty tired of this socialism speak.
+none of that job stealer speak either.  We don't need no wall hoppers here either.  Just good ol' American speak.
+alright so google translate says that's icelandic but it's translation in english is  the same, but in portuguese it means "I was there".  so fuck if I know.  I understand just enough mexispeak to tell them not to steal my stuff when they cut my lawn.
+ooo neat
+I like how the picture dictionary shows a black guy in a fighter pilot's helmet giving a thumbs up but it looks like he's in pain for some reason....
+Schep's back on the market?!
+Hi schep  =]
+oh question to people, was it a waste of time and money to spendlike 3 hours in abyss using 4k bloods and 12k fires and all of my div charges trying for pets and using scav3?
+yah I know you think that but I don't have 43m tyvm
+I have like.... 300k rn...
+I did for the first part but then I needed something more afk
+also I used like 6 aggro flasks...
+http://i.runescape.com/ct/51985225:61QRk9yLN:m:1:2735266367:3FBD01E5862D3879D961F791BC44F8D0:r:312734703
+rs survey, might link to me though so idk
+<@!327655882207002625>
+the max cape isn't necessary, that's infinity ethereal but any full outfit works (I used law ethereal while maxing).  that's combined catalyst frag, wildy sword, tokkul-zo, and demonic skull.  all 5 pouches
+what's missing is urns and urn enhancer.  you want those b/c they add like 15k per harvest.
+it's 11 unstarted and one started
+def, free tele to edgeville
+well, not needed but super helpful
+and abyssal titan with 20 ess as well
+urns at least (and enhancer if you can) are needed though
+and catalyst allows pouches to stay longer without degrading
+oh?
+you only have 3 slots if you have infinity outfit btw
+and you never explained what necklace does so I never used it, that woulda helped a shit ton 😛
+if you don't have infinity then you can only carry 94/95
+https://www.reddit.com/r/runescape/comments/5z6n60/f2p_shop_runs_new_options_due_to_invention/
+<@326206917460361217>
+I hate you
+<@!215610241834811393> "Well if you would have told me why you needed it"
+Just saying 😛
+yall fuckers dont' have a "drops achievements" channel
+so:
+oh all
+man who reads descriptions
+I'd still rather have a combat pet tbh
+gg
+$pet yaka 18
+$pet kbd 589
+o shit
+$pet gd1 597
+$bosslist
+$pet gwd1 597
+$pet gwd1 621
+$pet rax 55
+not as terrible as I thought
+$pet kq 70
+ha
+$pet kiln 4
+$pet kiln 100
+can someone explain how the $pet calc works?
+so are you guys actually racist or?
+<@!136806558901207040> you joining us or no?
+yah it's clan "killing vindy for an hour"
+no cheq
+huh?
+it's talking?
+how do I get it to stop?
+stahp it
+those colors look terrible
+though my grouops isn't much better...
+<@!293219528450637824> SMH GO ALREADY
+he just came
+did you just go offline <@!215610241834811393> ?
+ard good
+You are buying Tess for 1b, remember? I’m giving you my luck and you will get Tess before I max.
+Fuck if I know. You’re just waiting to finish up when I’m online?
+Rip. I actually had some hope that I could pull out the upset. I got 99 rc and dung last night and I’m less than 2m from 99 hunter.
+Yeah yeah 😛
+Schep when are you telosing next?
+Well technically I don’t have 99 dung yet. I’m 143k away but I have a completed extended daily to turn in. I was gonna a get hunter and then max in prif.
+How many hours from now is tonight for you?
+Because it’s 10:30 AM where I am
+That’s no excuse.
+Twitch mobile, duh
+Okay.  Please let me know when you wake up.  I'm not gonna max before you either, you won fair and square =]
+schep please stream so I have something better to watch while I catch tortles than bs aod
+hmmm?
+who is bullying you?
+I'm not acatually paying attention to chat btw
+Sorry I was helping a guest make a reservation
+coiz you should keep bothering schep
+schep you should kick coiz from everything so she is sad and won't get on rs and skill
+<@!293219528450637824> <@!215610241834811393>
+but it's coiz
+also you should cloak yourself in the aura of maniacle and go kill telos
+turns out I'm cooking at soul altar
+I don’t have full ethereal, so I’m only bringing 95 essence per trip.
+I only have one set, not infinity.
+Schep
+You’re supposed to not do that.
+"Please take me in the alley behind with your e-peen"
+
+thank you
+and with that I have turned notifications to only mentions
