@@ -1,0 +1,650 @@
+Your chance of not getting the pet by now is: 21.42%
+Your chance of not getting the pet by now is: 23.06%
+Your chance of not getting the pet by now is: 24.64%
+Your chance of not getting the pet by now is: 26.69%
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+Using an enrage of 4000 (max chance).
+A kill with enrage 4000% and streak 4000:
+Unique chance: 1/9 without LotD, 1/9 with LotD.
+A kill with enrage 742% and streak 38:
+Unique chance: 1/32 without LotD, 1/31 with LotD.
+Your chance of not getting the pet by now is: 67.03%
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+Streaking from 100% to 500%:
+Expected number of kills: 35
+Expected uniques: 0.4985 without LotD, 0.5203 with LotD.
+Streaking from 100% to 900%:
+Expected number of kills: 70
+Expected uniques: 1.74 without LotD, 1.782 with LotD.
+Streaking from 100% to 300%:
+Expected number of kills: 18
+Expected uniques: 0.1646 without LotD, 0.1761 with LotD.
+Streaking from 100% to 400%:
+Expected number of kills: 26
+Expected uniques: 0.3 without LotD, 0.3163 with LotD.
+Streaking from 100% to 600%:
+Expected number of kills: 44
+Expected uniques: 0.7463 without LotD, 0.7734 with LotD.
+Your chance of not getting the pet by now is: 28.69%
+A kill with enrage 300% and streak 24:
+Unique chance: 1/63 without LotD, 1/61 with LotD.
+Your chance of not getting Tess by now is: 6.299%
+Specified drop or boss not listed.
+The droprate for rax of solo component is: 1/120
+Streaking from 0% to 200%:
+Expected number of kills: 18
+Expected uniques: 0.1193 without LotD, 0.1307 with LotD.
+The droprate for rax of pet is: 1/[500, 200]
+The pet from rax has droprate 1/500 and threshold 200.
+The pet from kbd has droprate 1/2500 and threshold 500.
+Your chance of not getting the pet by now is: 67.01%
+Your chance of not getting Tess by now is: 0.3807%
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+The tracked bosses are: ['rax', 'barrows', 'rots', 'durzag', 'chaos', 'corp', 'dks', 'kiln', 'mole', 'gwd1', 'gwd2', 'kk', 'kq', 'kbd', 'legiones', 'nex', 'aod', 'qbd', 'telos', 'magister', 'rago', 'yaka']
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+The drops for rax are: ['solo component', 'solo leg', 'duo component', 'duo leg', 'pheromone', 'pet']
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+Your chance of not getting Tess by now is: 78.42%
+A kill with enrage 2237% and streak 3:
+Unique chance: 1/17 without LotD, 1/17 with LotD.
+A kill with enrage 2000% and streak 160:
+Unique chance: 1/10 without LotD, 1/10 with LotD.
+A kill with enrage 2013% and streak 161:
+Unique chance: 1/10 without LotD, 1/9 with LotD.
+A kill with enrage 344% and streak 0:
+Unique chance: 1/104 without LotD, 1/97 with LotD.
+A kill with enrage 100% and streak 0:
+Unique chance: 1/285 without LotD, 1/242 with LotD.
+A kill with enrage 200% and streak 16:
+Unique chance: 1/92 without LotD, 1/87 with LotD.
+A kill with enrage 0% and streak 0:
+Unique chance: 1/1000 without LotD, 1/615 with LotD.
+A kill with enrage 250% and streak 20:
+Unique chance: 1/75 without LotD, 1/72 with LotD.
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+Your chance of not getting the pet by now is: 0.7404%
+Your chance of not getting Tess by now is: 8.364%
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+A kill with enrage 300% and streak 24:
+Unique chance: 1/63 without LotD, 1/61 with LotD.
+Your chance of not getting the pet by now is: 74.03%
+Your chance of not getting the pet by now is: 2.338%
+Your chance of not getting the pet by now is: 3.677%
+A kill with enrage 150% and streak 15:
+Unique chance: 1/108 without LotD, 1/101 with LotD.
+A kill with enrage 250% and streak 20:
+Unique chance: 1/75 without LotD, 1/72 with LotD.
+A kill with enrage 400% and streak 32:
+Unique chance: 1/48 without LotD, 1/47 with LotD.
+A kill with enrage 500% and streak 40:
+Unique chance: 1/39 without LotD, 1/38 with LotD.
+Your chance of not getting Tess by now is: 14.94%
+Your chance of not getting the pet by now is: 0.7404%
+A kill with enrage 3048% and streak 200:
+Unique chance: 1/9 without LotD, 1/9 with LotD.
+A kill with enrage 180% and streak 8:
+Unique chance: 1/126 without LotD, 1/116 with LotD.
+A kill with enrage 0% and streak 0:
+Unique chance: 1/1000 without LotD, 1/615 with LotD.
+A kill with enrage 999% and streak 0:
+Unique chance: 1/38 without LotD, 1/37 with LotD.
+A kill with enrage 100% and streak 0:
+Unique chance: 1/285 without LotD, 1/242 with LotD.
+A kill with enrage 112% and streak 1:
+Unique chance: 1/242 without LotD, 1/210 with LotD.
+Your chance of not getting the pet by now is: 44.79%
+Your chance of not getting the pet by now is: 30.1%
+Your chance of not getting the pet by now is: 30.1%
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+A kill with enrage 300% and streak 0:
+Unique chance: 1/116 without LotD, 1/109 with LotD.
+A kill with enrage 300% and streak 5:
+Unique chance: 1/100 without LotD, 1/94 with LotD.
+A kill with enrage 300% and streak 20:
+Unique chance: 1/68 without LotD, 1/66 with LotD.
+Your chance of not getting the pet by now is: 30.09%
+Your chance of not getting the pet by now in hardmode is: 68.65%
+Your chance of not getting the pet by now in hardmode is: 0.05454%
+Your chance of not getting the pet by now in hardmode is: 77.87%
+Your chance of not getting the pet by now in hardmode is: 0.0625%
+Your chance of not getting the pet by now in hardmode is: 71.09%
+Your chance of not getting Tess by now is: 0.01264%
+Your chance of not getting Tess by now is: 0.01264%
+Your chance of not getting the pet by now is: 67.03%
+Your chance of not getting the pet by now in hardmode is: 13.51%
+Your chance of not getting Tess by now is: 0.012%
+Your chance of not getting the pet by now is: 0.7404%
+Your chance of not getting Tess by now is: 0.01188%
+Your chance of not getting the pet by now is: 16.51%
+Your chance of not getting the pet by now is: 55.2%
+Your chance of not getting Tess by now is: 0.01413%
+Your chance of not getting the pet by now is: 81.87%
+Your chance of not getting the pet by now in hardmode is: 36.77%
+Your chance of not getting Tess by now is: 1.364%
+A kill with enrage 1% and streak 1:
+Unique chance: 1/754 without LotD, 1/512 with LotD.
+Your chance of not getting Tess by now is: 0.0005885%
+Your chance of not getting Tess by now is: 0.0005885%
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+A kill with enrage 2000% and streak 200:
+Unique chance: 1/9 without LotD, 1/9 with LotD.
+A kill with enrage 300% and streak 25:
+Unique chance: 1/62 without LotD, 1/60 with LotD.
+A kill with enrage 4000% and streak 500:
+Unique chance: 1/9 without LotD, 1/9 with LotD.
+A kill with enrage 4000% and streak 2000:
+Unique chance: 1/9 without LotD, 1/9 with LotD.
+Your chance of not getting the pet by now is: 0.07435%
+Your chance of not getting the pet by now is: 0%
+A kill with enrage 4000% and streak 4000:
+Unique chance: 1/9 without LotD, 1/9 with LotD.
+Your percent chance of not getting Tess by now is: 2.292e-104%
+Your percent chance of not getting the pet by now is: 32.57%
+Your percent chance of not getting Tess by now is: 0.01200%
+Your percent chance of not getting the pet by now is: 81.87%
+Your percent chance of not getting the pet by now is: 54.88%
+Your percent chance of getting the pet by now is: 45.12%
+Your percent chance of getting the pet by now is: 95.03%
+Your percent chance of not getting Tess by now is: 0.001608%
+Your percent chance of not getting the pet by now is: 0.002029%
+Your percent chance of not getting the pet by now is: 32.44%
+Your percent chance of not getting the pet by now is: 2.712%
+Your percent chance of not getting the pet by now is: 0.7404%
+Your percent chance of not getting Tess by now is: 3.6326700942430428144E-48%
+Your percent chance of not getting the pet by now is: 34.65%
+Your percent chance of not getting the pet by now is: 2.9744682624524871916E-11%
+Your percent chance of getting the pet by now is: 99.26%
+'Listed boss not in table.'
+Your percent chance of getting the pet by now is: 32.97%
+'Listed boss not in table.'
+The tracked bosses are: ['rax', 'barrows', 'rots', 'durzag', 'chaos', 'corp', 'dks', 'kiln', 'mole', 'gwd1', 'gwd2', 'kk', 'kq', 'kbd', 'legiones', 'nex', 'aod', 'qbd', 'telos', 'magister', 'rago', 'yaka']
+Your percent chance of getting the pet by now is: 43.86%
+invalid literal for int() with base 10: 'kk'
+Your percent chance of getting Tess by now is: 99.98%
+Your percent chance of getting Tess by now is: 99.99%
+Your percent chance of getting Tess by now is: 100.00%
+Your percent chance of getting the pet by now is: 99.26%
+Your percent chance of getting the pet by now is: 83.49%
+Streaking from 536%:
+Expected kills until unique: 39 without LotD, 39 with LotD.
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 35.07%
+Your percent chance of getting the pet by now is: -34.07%
+Your percent chance of getting the pet by now is: 64.93%
+Your percent chance of getting Tess by now is: 99.93%
+A kill with enrage 800% and streak 0:
+Unique chance: 1/47 without LotD, 1/46 with LotD.
+A kill with enrage 1821% and streak 0:
+Unique chance: 1/21 without LotD, 1/21 with LotD.
+List of commands:
+$telos <enrage>% <enrage>% - returns expected uniques when streaking from the first enrage to the second enrage.
+$telos <enrage>% - returns expected number of kills until a unique is obtained when starting at the given enrage.
+$telos <enrage>% <streak>kc - returns the chance of obtaining a unique with a kill at the given enrage and streak.
+$telos pet <killcount> - returns the chance of not getting the pet by the time you have hit the given killcount.
+$telos help - returns the above list.
+Streaking from 0%:
+Expected kills until unique: 57 without LotD, 56 with LotD.
+Streaking from 100%:
+Expected kills until unique: 53 without LotD, 52 with LotD.
+Your percent chance of not getting the pet by now is: 1.493%
+Your percent chance of not getting Tess by now is: 0.1588%
+Your percent chance of not getting Tess by now is: 0.1588%
+Your percent chance of not getting Tess by now is: 0.02389%
+Your percent chance of not getting the pet by now is: 32.35%
+Your percent chance of not getting the pet by now is: 34.14%
+Your percent chance of not getting the pet by now is: 34.36%
+Your percent chance of not getting the pet by now is: 0.00001909%
+A kill with enrage 500% and streak 36:
+Unique chance: 1/41 without LotD, 1/40 with LotD.
+A kill with enrage 521% and streak 0:
+Unique chance: 1/71 without LotD, 1/68 with LotD.
+The chance of a unique at Telos with streak 45 and enrage 500 with LotD is: 1/36.
+The chance of a unique at Telos with streak 36 and enrage 500 with LotD is: 1/40.
+The chance of a unique at Telos with streak 52 and enrage 572 with LotD is: 1/31.
+Your percent chance of not getting the pet by now is: 0.6435%
+Your percent chance of not getting Tess by now is: 0.04676%
+Your percent chance of not getting the pet by now is: 52.80%
+Your percent chance of not getting the pet by now is: 13.52%
+Your percent chance of not getting the pet by now is: 95.16%
+Your percent chance of not getting the pet by now is: 4.968%
+Your percent chance of not getting Tess by now is: 0.001624%
+Your percent chance of not getting the pet by now is: 0.7404%
+Your percent chance of not getting Tess by now is: 0.05413%
+Your percent chance of not getting Tess by now is: 0.04365%
+Your percent chance of not getting Tess by now is: 0.01200%
+Your percent chance of not getting Tess by now is: 0.06713%
+The chance of a unique at Telos with streak 32 and enrage 500 with LotD is: 1/42.
+The chance of a unique at Telos with streak 32 and enrage 500 without LotD is: 1/43.
+The chance of a unique at Telos with streak 40 and enrage 500 with LotD is: 1/38.
+The chance of a unique at Telos with streak 40 and enrage 500 without LotD is: 1/39.
+Your percent chance of not getting Tess by now is: 0.06948%
+Your percent chance of not getting the pet by now is: 0.3672%
+Your percent chance of not getting Tess by now is: 0.0000042804641305690579515%
+Your percent chance of not getting Tess by now is: 0.08043%
+Your percent chance of not getting Tess by now is: 100.1%
+Your percent chance of not getting Tess by now is: 853.7%
+Invalid enrage.
+The chance of a unique at Telos with streak 10000 and enrage 0 with LotD is: 1/0.
+Your percent chance of not getting Tess by now is: 0.09472%
+Your percent chance of not getting Tess by now is: 0.1059%
+Your percent chance of not getting Tess by now is: 0.1006%
+Your percent chance of not getting Tess by now is: 0.01200%
+The pet from telos has droprate 1/1400 and threshold 300 with <100% enrage.
+The pet from telos has droprate 1/700 and threshold 300 with >100% enrage.
+The chance of a unique at Telos with streak 20 and enrage 350 without LotD is: 1/63.
+The chance of a unique at Telos with streak 19 and enrage 335 without LotD is: 1/66.
+The chance of a unique at Telos with streak 20 and enrage 350 with LotD is: 1/61.
+The chance of a unique at Telos with streak 16 and enrage 186 without LotD is: 1/95.
+The chance of a unique at Telos with streak 7 and enrage 186 without LotD is: 1/129.
+The chance of a unique at Telos with streak 70 and enrage 900 without LotD is: 1/22.
+The chance of a unique at Telos with streak 900 and enrage 0 without LotD is: 1/3.
+The chance of a unique at Telos with streak 0 and enrage 900 without LotD is: 1/42.
+Your percent chance of not getting the pet by now is: 90.48%
+invalid literal for int() with base 10: 'kms'
+Your percent chance of not getting the pet by now is: 0.8082%
+The chance of a unique at Telos with streak 20 and enrage 800 with LotD is: 1/36.
+The chance of a unique at Telos with streak 70 and enrage 800 with LotD is: 1/23.
+The chance of a unique at Telos with streak 20 and enrage 500 with LotD is: 1/49.
+Your percent chance of not getting Tess by now is: 0.1006%
+Your percent chance of not getting Tess by now is: 0.09974%
+Your percent chance of not getting Tess by now is: 0.001608%
+Your percent chance of not getting Tess by now is: 0.01200%
+Your percent chance of not getting Tess by now is: 0.0000051306307420753897202%
+Your percent chance of not getting Tess by now is: 0.1768%
+Your percent chance of not getting the pet by now is: 40.64%
+Your percent chance of not getting Tess by now is: 0.1768%
+Your percent chance of not getting Tess by now is: 0.1032%
+Your percent chance of not getting Tess by now is: 3.9065395338414036059E-7%
+Your percent chance of not getting Tess by now is: 0.0000014066028565699174294%
+Your percent chance of not getting Tess by now is: 7.3649849387051894417E-7%
+Your percent chance of not getting Tess by now is: 0.0000012358665240650817817%
+Your percent chance of not getting Tess by now is: 0.0000010858545169098252160%
+Your percent chance of not getting Tess by now is: 3.6326700942430428144E-48%
+Your percent chance of not getting the pet by now is: 1.253%
+Your percent chance of not getting the pet by now is: 24.64%
+Your percent chance of not getting the pet by now is: 0.2289%
+The chance of a unique at Telos with streak 0 and enrage 0 with LotD is: 1/615.
+Your percent chance of not getting Tess by now is: 0.2494%
+Your percent chance of not getting Tess by now is: 6.8035334967982777625E-9%
+invalid literal for int() with base 10: '19p0'
+Your percent chance of not getting Tess by now is: 0.004393%
+invalid literal for int() with base 10: 'c3po'
+Your percent chance of not getting Tess by now is: 0.001608%
+invalid literal for int() with base 10: 'r2d2'
+Your percent chance of not getting Tess by now is: 0.00005907%
+Your percent chance of not getting Tess by now is: 0.0000051306307420753897202%
+Your percent chance of not getting Tess by now is: 0.0000026864027728188260266%
+Your percent chance of not getting Tess by now is: 0.0000014066028565699174294%
+Your percent chance of not getting Tess by now is: 3.8067314350165854467E-7%
+Your percent chance of not getting the pet by now is: 99.90%
+'Listed boss not in table.'
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 96.08%
+Your percent chance of not getting the pet by now is: 50.90%
+Your percent chance of not getting the pet by now is: 1.6934140499368396069E-7%
+Invalid enrage.
+Your percent chance of not getting the pet by now is: 94.17%
+invalid literal for int() with base 10: 'death'
+The chance of a unique at Telos with streak 5000 and enrage 4000 with LotD is: 1/0.
+The chance of a unique at Telos with streak 84 and enrage 936 with LotD is: 1/19.
+invalid literal for int() with base 10: 'milow'
+Usage: $chance <streak> <enrage> <lotd>, where <lotd> is 1 or 0
+Your percent chance of not getting the pet by now is: 76.24%
+The chance of a unique at Telos with streak 10000 and enrage 1 with LotD is: 1/0.
+The chance of a unique at Telos with streak 400 and enrage 4000 with LotD is: 1/4.
+Your percent chance of not getting the pet by now is: 48.66%
+Your percent chance of not getting the pet by now is: 1.253%
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 0.00025757749835324651819%
+'Listed boss not in table.'
+The tracked bosses are: ['rax', 'barrows', 'rots', 'durzag', 'chaos', 'corp', 'dks', 'kiln', 'mole', 'gwd1', 'gwd2', 'kk', 'kq', 'kbd', 'legiones', 'nex', 'aod', 'qbd', 'telos', 'magister', 'rago', 'yaka']
+Your percent chance of not getting the pet by now is: 88.74%
+Your percent chance of not getting the pet by now is: 67.01%
+Your percent chance of not getting the pet by now is: 99.90%
+Your percent chance of not getting the pet by now is: 88.32%
+Your percent chance of not getting the pet by now is: 98.02%
+Your percent chance of not getting the pet by now is: 96.08%
+Your percent chance of not getting Tess by now is: 0.1006%
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 9.510%
+Your percent chance of not getting the pet by now is: 9.510%
+The tracked bosses are: ['rax', 'barrows', 'rots', 'durzag', 'chaos', 'corp', 'dks', 'kiln', 'mole', 'gwd1', 'gwd2', 'kk', 'kq', 'kbd', 'legiones', 'nex', 'aod', 'qbd', 'telos', 'magister', 'rago', 'yaka']
+Your percent chance of not getting the pet by now is: 89.57%
+Your percent chance of not getting the pet by now is: 1.253%
+Your percent chance of not getting the pet by now is: 97.24%
+Your percent chance of not getting Tess by now is: 0.2604%
+Your percent chance of not getting Tess by now is: 0.2494%
+Your percent chance of not getting the pet by now is: 51.64%
+Usage: $chance <streak> <enrage> <lotd>, where <lotd> is 1 or 0
+Your percent chance of not getting the pet by now is: 98.01%
+Your percent chance of not getting the pet by now is: 40.46%
+The chance of a unique at Telos with streak 44 and enrage 250 with LotD is: 1/47.
+The chance of a unique at Telos with streak 1 and enrage 1 with LotD is: 1/512.
+Your percent chance of not getting the pet by now is: 0.0%
+The chance of a unique at Telos with streak 1 and enrage 999 with LotD is: 1/37.
+Your percent chance of not getting the pet by now is: 50.0%
+Your percent chance of not getting the pet by now is: 25.0%
+Your percent chance of not getting the pet by now is: -0.0%
+Your percent chance of not getting the pet by now is: 1.108%
+Your percent chance of not getting the pet by now is: 1.024%
+Your percent chance of not getting the pet by now is: 0.9530%
+Your percent chance of not getting the pet by now is: 0.9807%
+Your percent chance of not getting the pet by now is: 3.3226480690529445541E-62%
+Your percent chance of not getting the pet by now is: 0.1125%
+Your percent chance of not getting the pet by now is: 0.09472%
+Your percent chance of not getting the pet by now is: 1.735%
+Your percent chance of not getting the pet by now is: 0.09889%
+Your percent chance of not getting the pet by now is: 0.09804%
+Your percent chance of not getting the pet by now is: 0.09974%
+Your percent chance of not getting the pet by now is: 0.1015%
+Your percent chance of not getting the pet by now is: 0.1006%
+Your percent chance of not getting the pet by now is: 0.1006%
+Your percent chance of not getting the pet by now is: 0.005704%
+Your percent chance of not getting the pet by now is: 1.092%
+Your percent chance of not getting the pet by now is: 1.084%
+Your percent chance of not getting the pet by now is: 0.2641%
+Your percent chance of not getting the pet by now is: 0.001608%
+Your percent chance of not getting the pet by now is: 0.0000051306307420753897202%
+Your percent chance of not getting the pet by now is: 7.9464734925572695999E-9%
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 0.1588%
+Your percent chance of not getting the pet by now is: 0.01200%
+Your percent chance of not getting the pet by now is: 0.05185%
+Your percent chance of not getting the pet by now is: 0.2838%
+Your percent chance of not getting the pet by now is: 54.87%
+Your percent chance of not getting the pet by now is: 53.97%
+Your percent chance of not getting the pet by now is: 44.95%
+The pet from mole has droprate 1/2500 and threshold 500.
+The pet from hardmode mole has droprate 1/500 and threshold 500.
+'Listed boss not in table.'
+The pet from kbd has droprate 1/2500 and threshold 500.
+Your percent chance of not getting the pet by now is: 36.75%
+Your percent chance of not getting the pet by now is: 7.2582929147669617403E-9%
+Your percent chance of not getting the pet by now is: 51.68%
+Your percent chance of not getting the pet by now is: 0.2858%
+The chance of a unique at Telos with streak 308 and enrage 18 without LotD is: 1/10.
+The chance of a unique at Telos with streak 18 and enrage 308 without LotD is: 1/70.
+Your percent chance of not getting the pet by now is: 0.3048%
+invalid literal for int() with base 10: '39!'
+invalid literal for int() with base 10: 'ord("\'")'
+Your percent chance of not getting the pet by now is: 0.2838%
+The chance of a unique at Telos with streak 56 and enrage 764 with LotD is: 1/26.
+Your percent chance of not getting the pet by now is: 66.01%
+Your percent chance of not getting the pet by now is: 0.2941%
+Your percent chance of not getting the pet by now is: 0.1588%
+Your percent chance of not getting the pet by now is: 0.001608%
+Your percent chance of not getting the pet by now is: 1.821110748879652690E-132%
+invalid literal for int() with base 10: '7E10'
+Your percent chance of not getting the pet by now is: 0.0%
+Your percent chance of not getting the pet by now is: 68.16%
+Your percent chance of not getting the pet by now is: 0.3048%
+Your percent chance of not getting the pet by now is: 48.67%
+Your percent chance of not getting the pet by now is: 5.469%
+Specified drop or boss not listed.
+The droprate for kingblackdragon of ornament kit is: 1/1000
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+Your percent chance of not getting the pet by now is: 96.95%
+The drops for nex are: ['any unique', 'ancient emblem', 'pet']
+The requested boss isn't listed.
+The drops for kingblackdragon are: ['ornament kit', "last rider's journal", 'head', 'visage', 'pet']
+Your percent chance of not getting the pet by now is: 48.66%
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+The chance of a unique at Telos with streak 50 and enrage 700 with LotD is: 1/29.
+The chance of a unique at Telos with streak 50 and enrage 700 without LotD is: 1/29.
+Usage: $chance <streak> <enrage> <lotd>, where <lotd> is 1 or 0
+The chance of a unique at Telos with streak 45 and enrage 648 with LotD is: 1/31.
+The chance of a unique at Telos with streak 20 and enrage 300 with LotD is: 1/66.
+The chance of a unique at Telos with streak 1000 and enrage 1 with LotD is: 1/3.
+The chance of a unique at Telos with streak 47 and enrage 670 with LotD is: 1/30.
+Invalid lotd value.
+Your percent chance of not getting the pet by now is: 0.1588%
+Your percent chance of not getting the pet by now is: 0.3160%
+Your percent chance of not getting the pet by now is: 72.67%
+The chance of a unique at Telos with streak 607 and enrage 42 with LotD is: 1/5.
+The chance of a unique at Telos with streak 42 and enrage 607 with LotD is: 1/34.
+Your percent chance of not getting the pet by now is: 0.7005%
+Your percent chance of not getting the pet by now is: 57.69%
+The chance of a unique at Telos with streak 36 and enrage 532 with LotD is: 1/38.
+Your percent chance of not getting the pet by now in hardmode is: 4.966%
+Your percent chance of not getting the pet by now is: 0.3252%
+Your percent chance of not getting the pet by now is: 48.66%
+'Listed boss not in table.'
+The tracked bosses are: ['araxxor', 'barrows', 'rots', 'beastmasterdurzag', 'chaoselemental', 'corporealbeast', 'dagannothkings', 'har-aken', 'giantmole', 'gwd1', 'gwd2', 'kalphiteking', 'kalphitequeen', 'kingblackdragon', 'legiones', 'nex', 'nexaod', 'queenblackdragon', 'telos', 'themagister', 'vorago', 'yakamaru']
+Your percent chance of not getting the pet by now is: 51.67%
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 55.76%
+Your percent chance of not getting the pet by now is: 48.66%
+Your percent chance of not getting the pet by now is: 91.94%
+Your percent chance of not getting the pet by now is: 53.41%
+Your percent chance of not getting Tess by now is: 0.3298%
+Your percent chance of not getting the pet by now is: 98.65%
+Your percent chance of not getting the pet by now in hardmode is: 49.64%
+Your percent chance of not getting the pet by now is: 0.3252%
+Your percent chance of not getting the pet by now is: 93.72%
+Your percent chance of not getting the pet by now is: 97.30%
+Your percent chance of not getting the pet by now is: 99.64%
+Invalid killcount
+Your percent chance of not getting the pet by now is: 78.01%
+Invalid droprate (use the denominator).
+invalid literal for int() with base 10: 'n'
+invalid literal for int() with base 10: 'y'
+Your percent chance of not getting the pet by now is: 0.0%
+invalid literal for int() with base 10: '.5'
+Your percent chance of not getting the pet by now is: 91.00%
+Your percent chance of not getting the pet by now is: 0.3252%
+The pet from telos has droprate 1/1400 and threshold 300 with <100% enrage.
+The pet from telos has droprate 1/700 and threshold 300 with >100% enrage.
+Your percent chance of not getting Tess by now is: 0.3298%
+Your percent chance of not getting the pet by now in hardmode is: 0.3298%
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 5.764%
+Your percent chance of not getting the pet by now in hardmode is: 0.3298%
+Your percent chance of not getting the pet by now in hardmode is: 0.3298%
+Usage: $pet <droprate> <thresh> <kc>
+'Listed boss not in table.'
+The pet from telos has droprate 1/1400 and threshold 300.
+The pet from hardmode telos has droprate 1/700 and threshold 300.
+Your percent chance of not getting the pet by now in hardmode is: 0.3780%
+The chance of a unique at Telos with streak 532 and enrage 36 with LotD is: 1/6.
+The chance of a unique at Telos with streak 36 and enrage 532 with LotD is: 1/38.
+The chance of a unique at Telos with streak 36 and enrage 532 without LotD is: 1/39.
+The chance of a unique at Telos with streak 4000 and enrage 800 with LotD is: 1/0.
+The chance of a unique at Telos with streak 800 and enrage 4000 with LotD is: 1/2.
+The chance of a unique at Telos with streak 800 and enrage 4000 without LotD is: 1/2.
+The chance of a unique at Telos with streak 420 and enrage 69 with LotD is: 1/7.
+Your percent chance of not getting the pet by now is: 99.90%
+Calculating % chance of not getting pet by current kc...
+The pet from telos has droprate 1/1400 and threshold 300
+The pet from telos has hardmode droprate 1/1400 and threshold 300
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 6.169%
+Your percent chance of not getting the pet by now in hardmode is: 0.3780%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 97.04%
+Your percent chance of not getting the pet by now in hardmode is: 86.06%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 96.08%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 17.60%
+Your percent chance of not getting the pet by now in hardmode is: 0.01672%
+'Listed boss not in table.'
+'Listed boss not in table.'
+Your percent chance of not getting the pet by now is: 1.810%
+Your percent chance of not getting the pet by now is: 46.95%
+Your percent chance of not getting the pet by now in hardmode is: 2.274%
+Your percent chance of not getting the pet by now is: 5.4787395922502169722E-8%
+No pet information found for rots.
+Your percent chance of not getting the pet by now is: 96.85%
+'Listed boss not in table.'
+Invalid lotd value.
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 58.57%
+The drops for gwd1 are: ['hilt', 'any unique', 'shard', 'pet', 'hm pet']
+The droprate for gwd1 of pet is: 1/5000
+The droprate for gwd1 of hm pet is: 1/1000
+The drops for araxxor are: ['solo component', 'solo leg', 'duo component', 'duo leg', 'pheromone', 'egg']
+The droprate for araxxor of egg is: 1/500
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.3252%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.3252%
+Specified drop or boss not listed.
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.3252%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 98.02%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 96.08%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 1.051%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.3252%
+The drops for araxxor are: ['solo component', 'solo leg', 'duo component', 'duo leg', 'pheromone', 'egg']
+The droprate for araxxor of solo leg is: 1/40
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 98.51%
+The drops for RotS are: ['Shield']
+Specified drop or boss not listed.
+The droprate for RotS of Shield is: 1/80
+Specified drop or boss not listed.
+The tracked bosses are: ['araxxor', 'barrows', 'rots', 'beastmasterdurzag', 'chaoselemental', 'corporealbeast', 'dagannothkings', 'fightkiln', 'giantmole', 'gwd1', 'gwd2', 'kalphiteking', 'kalphitequeen', 'kingblackdragon', 'legiones', 'nex', 'nexaod', 'queenblackdragon', 'themagister', 'vorago', 'yakamaru']
+The drops for nexaod are: ['wand/core', 'codex', 'any chest', 'pet']
+The droprate for nexaod of pet is: 1/3000
+The requested boss isn't listed.
+Usage: $chance <streak> <enrage> <lotd>, where <lotd> is 1 or 0
+The droprate for themagister of phylactery is: 1/17
+The drops for themagister are: ['phylactery', 'gloves of passage', 'pet']
+The drops for nex are: ['any unique', 'ancient emblem', 'pet']
+The drops for fightkiln are: ['pet']
+The droprate for fightkiln of pet is: 1/200
+The tracked bosses are: ['Araxxor', 'Barrows', 'RotS', 'BeastmasterDurzag', 'ChaosElemental', 'CorporealBeast', 'DagannothKings', 'FightKiln', 'GiantMole', 'GWD1', 'GWD2', 'KalphiteKing', 'KalphiteQueen', 'KingBlackDragon', 'Legiones', 'Nex', 'NexAoD', 'QueenBlackDragon', 'TheMagister', 'Vorago', 'Yakamaru']
+The drops for GiantMole are: ['Dragon 2H', 'Dragon 2H (HM)', 'Clingy Mole', 'Clingy Mole (HM)', 'Ultra Growth (HM)', 'Pet', 'Pet (HM)']
+Specified drop or boss not listed.
+The droprate for GiantMole of Clingy Mole is: 1/104
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+The droprate for Araxxor of Pheromone is: 1/42
+Specified drop or boss not listed.
+Specified drop or boss not listed.
+The drops for Araxxor are: dict_keys(['Solo Component', 'Solo Leg', 'Duo Component', 'Duo Leg', 'Pheromone', 'Egg'])
+The drops for Araxxor are: ['Solo Component', 'Solo Leg', 'Duo Component', 'Duo Leg', 'Pheromone', 'Egg']
+The droprate for Araxxor of Solo Leg is: 1/40
+The requested boss isn't listed.
+Calculating % chance of not getting pet by current kc...
+Usage: $pet <droprate> <thresh> <kc>
+Calculating % chance of not getting pet by current kc...
+Calculating % chance of not getting pet by current kc...
+Usage: $pet <droprate> <thresh> <kc>
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.3780%
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 1.3540152965922159
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.6659065146944814
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.5370518302473908
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 22.299066368858828
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.40316867745590856
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 98.70828516406274
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.37797899434168286
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.40028890118836635
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.3974296947513066
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.3945909112173687
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.37797899434168286
+The chance of a unique at Telos with streak 75 and enrage 999 with LotD is: 1/20.
+Calculating % chance of not getting pet by current kc...
+Usage: $pet <droprate> <thresh> <kc>
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.37797899434168286
+The chance of a unique at Telos with streak 354 and enrage 4000 with LotD is: 1/4.
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 7.609864558898968
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 98.01888648295348
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 63.321656820409736
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 48.661980255411706
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 1.3637564138338865
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 1.2506519899973012
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 99.95
+Usage: $chance <streak> <enrage> <lotd>, where <lotd> is 1 or 0
+Calculating % chance of not getting pet by current kc...
+Usage: $pet <droprate> <thresh> <kc>
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 65.12394778623481
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 96.07817508172765
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 27.602950213390386
+The chance of a unique at Telos with streak 15 and enrage 274 with LotD is: 1/77.
+Calculating % chance of not getting pet by current kc...
+Usage: $pet <droprate> <thresh> <kc>
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 0.37797899434168286
+Calculating % chance of not getting pet by current kc...
+Your percent chance of not getting the pet by now is: 1.530381293125626e-38
+The chance of a unique at Telos with streak 500 and enrage 2500 with LotD is: 1/4.
+The chance of a unique at Telos with streak 1 and enrage 5000 with LotD is: 1/7.
+The chance of a unique at Telos with streak 2 and enrage 5000 with LotD is: 1/7.
+Invalid enrage.
+Invalid enrage.
+The chance of a unique at Telos with streak 1 and enrage 8000 with LotD is: 1/4.
+The chance of a unique at Telos with streak 1000 and enrage 1000000 with LotD is: 1/0.
+The chance of a unique at Telos with streak 10 and enrage 5 with LotD is: 1/210.
+
+The chance of a unique at Telos with streak 1 and enrage 1 with LotD is: 1/512
+The chance of a unique at Telos with streak 1 and enrage 999 with LotD is: 1/37
+The chance of a unique at Telos with streak 1 and enrage 1 with LotD is: 1/512.
