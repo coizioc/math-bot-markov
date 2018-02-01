@@ -61,4 +61,4 @@ async def mk(*, name: str):
 async def listmarkov():
     await client.say(valid_names)
 
-client.run('NDA4NTg3NDk2MDMzODc4MDE3.DVSOaA.HbF0NWYXSkVwTgNut3wLf4NgaF0')
+client.run('BOT_KEY_GOES_HERE')
