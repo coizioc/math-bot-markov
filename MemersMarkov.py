@@ -28,6 +28,7 @@ async def on_ready():
     print('Created by Habchy#1665')
     return await client.change_presence()
 
+DEFAULT_NAME = "MemersMarkov"
 valid_names = []
 
 files = [f for f in os.listdir('.\\json\\')]
@@ -36,29 +37,71 @@ for f in files:
     if f.find(".json") != -1:
         valid_names.append(f[:-5])
 
-def generate_markov(name):
-    if name.lower() not in valid_names:
-        return "Error: name not found."
-    else:
-        with open(".\\json\\" + name + ".json", "r", encoding='latin-1') as f:
-            text_model = markovify.Text.from_json(json.load(f))
 
-        output = "None"
+def generate_markov(args):
+    args_list = args.split(' ')
 
-        for i in range(100):
+    name_input = args_list[0].split('+')
+    root = ""
+
+    if len(args_list) > 1:
+        root += args_list[1]
+
+    models = []
+    name = []
+
+    for n in name_input:
+        count = 0
+
+        for x in valid_names:
+            if n in x:
+                count += 1
+                name.append(x)
+
+        if count > 1:
+            return ["Error: Input maps to multiple names. (" + n + ")", DEFAULT_NAME]
+
+    nickname = ""
+
+    for n in name:
+        try:
+            with open(".\\json\\" + n + ".json", "r", encoding='utf-8-sig') as f:
+                models.append(markovify.Text.from_json(json.load(f)))
+        except:
+            return ["Error: Name not found (" + n + ")", DEFAULT_NAME]
+
+        nickname += n + "+"
+
+    text_model = markovify.combine(models)
+
+    output = "None"
+    for i in range(50):
+        if root != "":
+            output = text_model.make_sentence_with_start(root, tries=10, strict=False)
+        else:
             output = text_model.make_sentence(tries=100)
-            if output != "None":
-                return output
+        if output is not None:
+            return [output, nickname[:-1].title()]
 
-        return "Error: insufficient data for Markov chain."
+    return ["Error: insufficient data for Markov chain.", DEFAULT_NAME]
 
 @client.command()
-async def mk(*, name: str):
-    sentence = generate_markov(name)
-    await client.say(sentence)
+async def mk(*, args: str):
+    out = generate_markov(args)
+    #await client.change_nickname(discord.Member.nick, out[1])
+    await client.say("**" + out[1] + "**: " + out[0])
+
+@client.command()
+async def pingcoiz() :
+    await client.say(":steam_locomotive: girl btw")
 
 @client.command()
 async def listmarkov():
     await client.say(valid_names)
 
-client.run('BOT_KEY_GOES_HERE')
+@client.command()
+async def am():
+    await client.say("Yes you are.")
+
+
+client.run('BOT_KEY_GOES HERE')
