@@ -10,8 +10,9 @@ import platform
 import markovify
 import os
 import json
+from user_exceptions import AmbiguousInputError, NoUserInputError
 
-client = Bot(description="MemersMarkov", command_prefix="", pm_help = False)
+client = Bot(description="MemersMarkov", command_prefix="", pm_help=False)
 @client.event
 async def on_ready():
     print('Logged in as '+client.user.name+' (ID:'+client.user.id+') | Connected to '+str(len(client.servers))+' servers | Connected to '+str(len(set(client.get_all_members())))+' users')
@@ -29,21 +30,23 @@ async def on_ready():
     return await client.change_presence()
 
 DEFAULT_NAME = "MemersMarkov"
+MEMERS_REPO = ".\\json\\"
+REDDIT_REPO = ".\\rjson\\"
 
-files = [f for f in os.listdir('.\\json\\')]
-valid_names = [f[:-5] for f in files if f.find(".json") != -1]
+memers_files = [f for f in os.listdir(MEMERS_REPO)]
+valid_names = [f[:-5] for f in memers_files if f.find(".json") != -1]
+
+r_files = [f for f in os.listdir(REDDIT_REPO)]
+r_valid_names = [f[:-5] for f in r_files if f.find(".json") != -1]
 
 
-def generate_markov(args):
-    args_list = args.split(' ')
-    name_input = args_list[0].split('+')
-    root = ''.join([args_list[1] if len(args_list) > 1 else ''])
+def parse_names(name_input, usable_names):
     name = []
 
     for n in name_input:
         current_name = []
 
-        for x in valid_names:
+        for x in usable_names:
             if n == x:
                 name.append(x)
                 break
@@ -51,19 +54,50 @@ def generate_markov(args):
                 current_name.append(x)
         else:
             if len(current_name) == 0:
-                return ['Error: User not found ({name})'.format(name=n), DEFAULT_NAME]
+                raise NoUserInputError(n, str(current_name))
             elif len(current_name) == 1:
                 name.append(current_name[0])
             else:
-                return ["Error: Input maps to multiple users. ('{name}' -> {name_list})"
-                            .format(name=n, name_list=str(current_name)), DEFAULT_NAME]
+                raise AmbiguousInputError(n, str(current_name))
+    else:
+        return name
 
+
+def generate_models(repo, name):
     models = []
+
+    for n in name:
+        try:
+            with open('{repo}{name}.json'.format(repo=repo, name=n), 'r', encoding='utf-8-sig') as f:
+                models.append(markovify.Text.from_json(json.load(f)))
+        except:
+            raise FileNotFoundError()
+
+    return models
+
+
+def generate_markov(args, reddit=False):
+    args_list = args.split(' ')
+    name_input = args_list[0].split('+')
+    root = ''.join([args_list[1] if len(args_list) > 1 else ''])
+
+    try:
+        name = parse_names(name_input, valid_names) if not reddit else parse_names(name_input, r_valid_names)
+        models = generate_models(MEMERS_REPO, name) if not reddit else generate_models(REDDIT_REPO, name)
+    except NoUserInputError as e:
+        return ['Error: User not found ({name})'.format(name=e.name), DEFAULT_NAME]
+    except AmbiguousInputError as e:
+        return ["Error: Input maps to multiple users. ('{name}' -> {name_list})"
+                            .format(name=e.name, name_list=e.output), DEFAULT_NAME]
+    except FileNotFoundError as e:
+        return ['Error: File not found ({name}.json)'.format(name=e.filename), DEFAULT_NAME]
+
     nickname = ""
 
     for n in name:
         try:
-            with open('.\\json\\{name}.json'.format(name=n), 'r', encoding='utf-8-sig') as f:
+            with open('{repo}{name}.json'.format(repo=MEMERS_REPO if not reddit else REDDIT_REPO, name=n),
+                      'r', encoding='utf-8-sig') as f:
                 models.append(markovify.Text.from_json(json.load(f)))
         except:
             return ['Error: File not found ({name}.json)'.format(name=n), DEFAULT_NAME]
@@ -91,12 +125,23 @@ async def mk(*, args: str):
     await client.say("**" + out[1] + "**: " + out[0])
 
 @client.command()
+async def rmk(*, args: str):
+    out = generate_markov(args, reddit=True)
+    #await client.change_nickname(discord.Member.nick, out[1])
+    await client.say("**" + out[1] + "**: " + out[0])
+
+
+@client.command()
 async def pingcoiz() :
     await client.say(":steam_locomotive: girl btw")
 
 @client.command()
 async def listmarkov():
     await client.say(valid_names)
+
+@client.command()
+async def rlistmarkov():
+    await client.say("The list of valid names can be found at https://pastebin.com/GqxMT5r8")
 
 @client.command()
 async def am():
