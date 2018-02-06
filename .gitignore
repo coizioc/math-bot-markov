@@ -4,3 +4,4 @@ json/
 rjson/
 txt/
 __pycache__
+*.txt
