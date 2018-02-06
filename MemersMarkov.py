@@ -62,9 +62,9 @@ def generate_markov(args):
                 current_name.append(x)
         else:
             if len(current_name) == 0:
-                return ["Error: Name not found ({name})".format(name=n), DEFAULT_NAME]
+                return ["Error: User not found ({name})".format(name=n), DEFAULT_NAME]
             elif len(current_name) > 1:
-                return ["Error: Input maps to multiple names. ({name} -> {name_list})"
+                return ["Error: Input maps to multiple users. ('{name}' -> {name_list})"
                             .format(name=n, name_list=str(current_name)), DEFAULT_NAME]
 
     nickname = ""
