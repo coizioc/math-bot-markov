@@ -1,7 +1,4 @@
 #!/usr/bin/python3.6
-# MemersMarkov was created by Coizioc: https://github.com/coizioc/MemersMarkov
-# Basic Bot was created by Habchy: https://github.com/Habchy/BasicBot
-# Markovify was created by jsvine: https://github.com/jsvine/markovify
 
 import os
 import json
