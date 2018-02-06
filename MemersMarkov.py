@@ -1,3 +1,4 @@
+#!/usr/bin/python3.6
 # MemersMarkov was created by Coizioc: https://github.com/coizioc/MemersMarkov
 # Basic Bot was created by Habchy: https://github.com/Habchy/BasicBot
 # Markovify was created by jsvine: https://github.com/jsvine/markovify
@@ -10,6 +11,8 @@ import platform
 import markovify
 import os
 import json
+
+ABSPATH = '/home/austin/Documents/MemersMarkov'
 
 client = Bot(description="MemersMarkov", command_prefix="", pm_help = False)
 @client.event
@@ -30,7 +33,7 @@ async def on_ready():
 
 valid_names = []
 
-files = [f for f in os.listdir('.\\json\\')]
+files = [f for f in os.listdir(f"{ABSPATH}/json")]
 
 for f in files:
     if f.find(".json") != -1:
@@ -40,7 +43,7 @@ def generate_markov(name):
     if name.lower() not in valid_names:
         return "Error: name not found."
     else:
-        with open(".\\json\\" + name + ".json", "r", encoding='latin-1') as f:
+        with open(f"{ABSPATH}/json/{name}.json", "r", encoding='latin-1') as f:
             text_model = markovify.Text.from_json(json.load(f))
 
         output = "None"
@@ -61,4 +64,6 @@ async def mk(*, name: str):
 async def listmarkov():
     await client.say(valid_names)
 
-client.run('BOT_KEY_GOES_HERE')
+with open(f"{ABSPATH}/tokens/bottoken.txt",'r+') as bottoken:
+    bot_token = bottoken.read().strip()
+    client.run(bot_token)
