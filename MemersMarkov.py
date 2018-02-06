@@ -37,18 +37,22 @@ DEFAULT_NAME = "MemersMarkov"
 ABSPATH = '/home/austin/Documents/MemersMarkov'
 WINDOWS_MEMERS_REPO = ".\\json\\"
 WINDOWS_REDDIT_REPO = ".\\rjson\\"
+WINDOWS_BOT_TOKEN = ".\\tokens\\bottoken.txt"
 LINUX_MEMERS_REPO = f"{ABSPATH}/json/"
 LINUX_REDDIT_REPO = f"{ABSPATH}/rjson/"
-
-if platform.system() == "Linux":
+LINUX_BOT_TOKEN = f"{ABSPATH}/tokens/bottoken.txt"
+platform = platform.system()
+if platform == "Linux":
     MEMERS_REPO = LINUX_MEMERS_REPO
     REDDIT_REPO = LINUX_REDDIT_REPO
-elif platform.system() == "Windows":
+    BOT_TOKEN = LINUX_BOT_TOKEN
+elif platform== "Windows":
     MEMERS_REPO = WINDOWS_MEMERS_REPO
     REDDIT_REPO = WINDOWS_REDDIT_REPO
+    BOT_TOKEN = WINDOWS_BOT_TOKEN
 else:
-   print(platform.system())
-   raise Exception(platform.system())
+   print(platform)
+   raise Exception(platform)
 
 memers_files = [f for f in os.listdir(MEMERS_REPO)]
 valid_names = [f[:-5] for f in memers_files if f.find(".json") != -1]
@@ -172,6 +176,6 @@ async def rlistmarkov():
 async def am():
     await client.say("Yes you are.")
 
-with open(f"{ABSPATH}/tokens/bottoken.txt",'r+') as bottoken:
+with open(f"{BOT_TOKEN}",'r+') as bottoken:
     bot_token = bottoken.read().strip()
     client.run(bot_token)
