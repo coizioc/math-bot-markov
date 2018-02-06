@@ -29,25 +29,15 @@ async def on_ready():
     return await client.change_presence()
 
 DEFAULT_NAME = "MemersMarkov"
-valid_names = []
 
 files = [f for f in os.listdir('.\\json\\')]
-
-for f in files:
-    if f.find(".json") != -1:
-        valid_names.append(f[:-5])
+valid_names = [f[:-5] for f in files if f.find(".json") != -1]
 
 
 def generate_markov(args):
     args_list = args.split(' ')
-
     name_input = args_list[0].split('+')
-    root = ""
-
-    if len(args_list) > 1:
-        root += args_list[1]
-
-    models = []
+    root = ''.join([args_list[1] if len(args_list) > 1 else ''])
     name = []
 
     for n in name_input:
@@ -61,36 +51,38 @@ def generate_markov(args):
                 current_name.append(x)
         else:
             if len(current_name) == 0:
-                return ["Error: User not found ({name})".format(name=n), DEFAULT_NAME]
+                return ['Error: User not found ({name})'.format(name=n), DEFAULT_NAME]
             elif len(current_name) == 1:
                 name.append(current_name[0])
-            elif len(current_name) > 1:
+            else:
                 return ["Error: Input maps to multiple users. ('{name}' -> {name_list})"
                             .format(name=n, name_list=str(current_name)), DEFAULT_NAME]
 
+    models = []
     nickname = ""
 
     for n in name:
         try:
-            with open(".\\json\\{name}.json".format(name=n), "r", encoding='utf-8-sig') as f:
+            with open('.\\json\\{name}.json'.format(name=n), 'r', encoding='utf-8-sig') as f:
                 models.append(markovify.Text.from_json(json.load(f)))
         except:
-            return ["Error: File not found ({name}.json)".format(name=n), DEFAULT_NAME]
+            return ['Error: File not found ({name}.json)'.format(name=n), DEFAULT_NAME]
 
         nickname += n + "+"
 
     text_model = markovify.combine(models)
 
-    output = ""
     for i in range(50):
-        if root != "":
-            output = text_model.make_sentence_with_start(root, tries=10, strict=False)
+        output = None
+
+        if root == "":
+            output = text_model.make_sentence(tries=10)
         else:
-            output = text_model.make_sentence(tries=100)
+            output = text_model.make_sentence_with_start(root, tries=10, strict=False)
         if output is not None:
             return [output, nickname[:-1].title()]
     else:
-        return ["Error: insufficient data for Markov chain.", DEFAULT_NAME]
+        return ['Error: insufficient data for Markov chain.', DEFAULT_NAME]
 
 @client.command()
 async def mk(*, args: str):
