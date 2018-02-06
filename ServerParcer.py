@@ -8,7 +8,7 @@ import markovify
 import re
 import os
 
-SERVER = '339514092106678273'
+SERVER = 'SERVER_NAME'
 
 # finds which messages were sent by a particular person and outputs them in a .txt
 def save_messages(message_list, name, person_index):
