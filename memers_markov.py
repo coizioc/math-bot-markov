@@ -1,7 +1,4 @@
 #!/usr/bin/python3.6
-# MemersMarkov was created by Coizioc: https://github.com/coizioc/MemersMarkov
-# Basic Bot was created by Habchy: https://github.com/Habchy/BasicBot
-# Markovify was created by jsvine: https://github.com/jsvine/markovify
 
 import os
 import json
@@ -152,13 +149,11 @@ def main():
     async def mk(*, args: str):
         """Command that generates and returns a Markov string for the given users."""
         out = generate_markov(args)
-        #await client.change_nickname(discord.Member.nick, out[1])
         servers = client.servers
         for server in servers:
             if server.id == '339514092106678273':
                 bot_self = server.me
         await client.change_nickname(bot_self, out[1])
-        # await client.say("**" + out[1] + "**: " + out[0])
         await client.say(out[0])
         await client.change_nickname(bot_self, DEFAULT_NAME)
 
@@ -166,8 +161,13 @@ def main():
     async def rmk(*, args: str):
         """Command that generates and returns a Markov string for the given users."""
         out = generate_markov(args, reddit=True)
-        #await client.change_nickname(discord.Member.nick, out[1])
-        await client.say("**" + out[1] + "**: " + out[0])
+        servers = client.servers
+        for server in servers:
+            if server.id == '339514092106678273':
+                bot_self = server.me
+        await client.change_nickname(bot_self, out[1])
+        await client.say(out[0])
+        await client.change_nickname(bot_self, DEFAULT_NAME)
 
     @client.command()
     async def pingcoiz():
