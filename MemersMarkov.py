@@ -53,15 +53,21 @@ def generate_markov(args):
     name = []
 
     for n in name_input:
+        current_name = []
         count = 0
 
         for x in valid_names:
-            if n in x:
-                count += 1
+            if n == x:
                 name.append(x)
-
-        if count > 1:
-            return ["Error: Input maps to multiple names. (" + n + ")", DEFAULT_NAME]
+                break
+            if n in x:
+                current_name.append(x)
+        else:
+            if len(current_name) == 0:
+                return ["Error: Name not found ({name})".format(name=n), DEFAULT_NAME]
+            elif len(current_name) > 1:
+                return ["Error: Input maps to multiple names. ({name} -> {name_list})"
+                            .format(name=n, name_list=str(current_name)), DEFAULT_NAME]
 
     nickname = ""
 
@@ -70,13 +76,13 @@ def generate_markov(args):
             with open(f"{ABSPATH}/json/{n}.json", "r", encoding='utf-8-sig') as f:
                 models.append(markovify.Text.from_json(json.load(f)))
         except:
-            return ["Error: Name not found (" + n + ")", DEFAULT_NAME]
+            return ["Error: File not found ({name}.json)".format(name=n), DEFAULT_NAME]
 
         nickname += n + "+"
 
     text_model = markovify.combine(models)
 
-    output = "None"
+    output = ""
     for i in range(50):
         if root != "":
             output = text_model.make_sentence_with_start(root, tries=10, strict=False)
@@ -84,8 +90,8 @@ def generate_markov(args):
             output = text_model.make_sentence(tries=100)
         if output is not None:
             return [output, nickname[:-1].title()]
-
-    return ["Error: insufficient data for Markov chain.", DEFAULT_NAME]
+    else:
+        return ["Error: insufficient data for Markov chain.", DEFAULT_NAME]
 
 @client.command()
 async def mk(*, args: str):
@@ -98,10 +104,11 @@ async def mk(*, args: str):
     await client.change_nickname(bot_self, out[1])
     # await client.say("**" + out[1] + "**: " + out[0])
     await client.say(out[0])
+    await client.change_nickname(bot_self, DEFAULT_NAME)
 
 @client.command()
 async def pingcoiz() :
-    await client.say(":steam_locomotive: girl btw")
+    await client.say(f"<@!293219528450637824> :steam_locomotive: girl btw")
 
 @client.command()
 async def listmarkov():
