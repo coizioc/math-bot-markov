@@ -1,3 +1,6 @@
 tokens/
 logs/
+json/
+rjson/
+txt/
 __pycache__
