@@ -984,3 +984,15 @@ You are running BasicBot v2.1
 Created by Habchy#1665
 Ignoring exception in command None
 discord.ext.commands.errors.CommandNotFound: Command "yeah" is not found
+Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "np" is not found
+Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "would" is not found
+Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "can" is not found
+Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "google" is not found
+Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "ye" is not found
+Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "tar.gz" is not found
