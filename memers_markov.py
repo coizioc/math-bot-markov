@@ -41,12 +41,16 @@ def main():
     @client.event
     async def on_ready():
         """Locally displays runtime info when the bot come online"""
-        print('Logged in as '+client.user.name+' (ID:'+client.user.id+') | Connected to '+str(len(client.servers))+' servers | Connected to '+str(len(set(client.get_all_members())))+' users')
-        print('--------')
-        print('Current Discord.py Version: {} | Current Python Version: {}'.format(discord.__version__, platform.python_version()))
-        print('--------')
-        print('Use this link to invite {}:'.format(client.user.name))
-        print('https://discordapp.com/oauth2/authorize?client_id={}&scope=bot&permissions=8'.format(client.user.id))
+        print(f"Logged in as {client.user.name} (ID:{client.user.id}) | ",
+              "Connected to {str(len(client.servers))} servers | ",
+              "Connected to {str(len(set(client.get_all_members())))} users")
+        print("--------")
+        print(f"Current Discord.py Version: {discord.__version__} | ",
+              "Current Python Version: {platform.python_version()}")
+        print("--------")
+        print("Use this link to invite {client.user.name}:")
+        print(f"https://discordapp.com/oauth2/authorize?client_id={client.user.id}",
+              "&scope=bot&permissions=8")
         return await client.change_presence()
 
     memers_files = [f for f in os.listdir(MEMERS_REPO)]
@@ -99,23 +103,30 @@ def main():
         root = ''.join([args_list[1] if len(args_list) > 1 else ''])
 
         try:
-            name = parse_names(name_input, valid_names) if not reddit else parse_names(name_input, r_valid_names)
-            models = generate_models(MEMERS_REPO, name) if not reddit else generate_models(REDDIT_REPO, name)
-        except NoUserInputError as e:
-            return [f"Error: User not found ({e.name})", DEFAULT_NAME]
-        except AmbiguousInputError as e:
-            return [f"Error: Input maps to multiple users. ('{e.name}' -> {e.output})", DEFAULT_NAME]
-        except FileNotFoundError as e:
-            return [f"Error: File not found ({e.filename}.json)", DEFAULT_NAME]
+            if reddit:
+                name_list = r_valid_names
+                repo = REDDIT_REPO
+            else:
+                name_list = valid_names
+                repo = MEMERS_REPO
+
+            name = parse_names(name_input, name_list)
+            models = generate_models(repo, name)
+
+        except NoUserInputError as no_user:
+            msg = f"Error: User not found ({no_user.name})"
+            return [msg, DEFAULT_NAME]
+        except AmbiguousInputError as bad_input:
+            msg = f"Error: Input maps to multiple users. ('{bad_input.name}' -> {bad_input.output})"
+            return [msg, DEFAULT_NAME]
+        except FileNotFoundError as no_file:
+            msg = f"Error: File not found ({no_file.filename}.json)"
+            return [msg, DEFAULT_NAME]
 
         nickname = ""
 
         for n in name:
             try:
-                if reddit:
-                    repo = REDDIT_REPO
-                else:
-                    repo = MEMERS_REPO
                 with open(f"{repo}{n}.json", 'r', encoding='utf-8-sig') as f:
                     models.append(markovify.Text.from_json(json.load(f)))
             except FileNotFoundError:
@@ -125,7 +136,7 @@ def main():
 
         text_model = markovify.combine(models)
 
-        for i in range(50):
+        for _ in range(50):
             output = None
 
             if root == "":
@@ -179,8 +190,8 @@ def main():
         await client.say("Yes you are.")
 
     with open(f"{BOT_TOKEN}", "r+") as bottoken:
-        TOKEN = bottoken.read().strip()
-        client.run(TOKEN)
+        token = bottoken.read().strip()
+        client.run(token)
 
 if __name__ == "__main__":
     main()
