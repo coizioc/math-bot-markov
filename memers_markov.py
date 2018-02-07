@@ -121,7 +121,9 @@ def main():
         except FileNotFoundError as no_file:
             msg = f"Error: File not found ({no_file.filename}.json)"
             return [msg, DEFAULT_NAME]
-
+        
+        nickname = ""
+        
         for n in name:
             try:
                 with open(f"{repo}{n}.json", 'r', encoding='utf-8-sig') as f:
@@ -147,7 +149,7 @@ def main():
             else:
                 output = text_model.make_sentence_with_start(root, tries=10, strict=False)
             if output is not None:
-                return [output, nickname[:-1].title()]
+                return [output, nickname.title()]
         else:
             return ['Error: insufficient data for Markov chain.', DEFAULT_NAME]
 
