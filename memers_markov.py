@@ -97,6 +97,8 @@ def main():
         """Generates the actual Markov ouput string from the list of args."""
         args_list = args.split(' ')
         name_input = args_list[0].split('+')
+        if len(name_input) > 10:
+            return ['Error: too many inputs. ({num_names})'.format(num_names=len(name_input)), DEFAULT_NAME]
         root = ''.join([args_list[1] if len(args_list) > 1 else ''])
 
         try:
@@ -120,8 +122,6 @@ def main():
             msg = f"Error: File not found ({no_file.filename}.json)"
             return [msg, DEFAULT_NAME]
 
-        nickname = ""
-
         for n in name:
             try:
                 with open(f"{repo}{n}.json", 'r', encoding='utf-8-sig') as f:
@@ -129,7 +129,13 @@ def main():
             except FileNotFoundError:
                 return ['Error: File not found ({name}.json)'.format(name=n), DEFAULT_NAME]
 
-            nickname += n + "+"
+            if len(nickname) + len(n) + 1 <= 30:
+                nickname += n + "+"
+
+        if len(nickname[:-1].split('+')) < len(name):
+            nickname += str(len(name) - len(nickname[:-1].split('+')))
+        else:
+            nickname = nickname[:-1]
 
         text_model = markovify.combine(models)
 
