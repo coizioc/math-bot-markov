@@ -122,6 +122,8 @@ def main():
             msg = f"Error: File not found ({no_file.filename}.json)"
             return [msg, DEFAULT_NAME]
 
+        nickname = ""
+
         for n in name:
             try:
                 with open(f"{repo}{n}.json", 'r', encoding='utf-8-sig') as f:
