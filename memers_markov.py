@@ -1,11 +1,12 @@
 #!/usr/bin/python3.6
+"""Runs the Memers Markov bot - includes user string and fanfic generation."""
 import os
 import json
 import platform
+import random
 import discord
 from discord.ext.commands import Bot
 import markovify
-import random
 from user_exceptions import AmbiguousInputError, NoUserInputError
 
 DEFAULT_NAME = "MemersMarkov"
@@ -24,10 +25,12 @@ PLATFORM = platform.system()
 if PLATFORM == "Linux":
     MEMERS_REPO = LINUX_MEMERS_REPO
     REDDIT_REPO = LINUX_REDDIT_REPO
+    FANFIC_REPO = LINUX_FANFIC_REPO
     BOT_TOKEN = LINUX_BOT_TOKEN
 elif PLATFORM == "Windows":
     MEMERS_REPO = WINDOWS_MEMERS_REPO
     REDDIT_REPO = WINDOWS_REDDIT_REPO
+    FANFIC_REPO = WINDOWS_FANFIC_REPO
     BOT_TOKEN = WINDOWS_BOT_TOKEN
 else:
     print(PLATFORM)
@@ -58,11 +61,11 @@ def main():
     r_files = [f for f in os.listdir(REDDIT_REPO)]
     r_valid_names = [f[:-5] for f in r_files if f.find(".json") != -1]
 
-    CHARACTERS_FILE = open(f'{FANFIC_REPO}characters.txt', "r", encoding="utf-8")
-    characters = CHARACTERS_FILE.readlines()
+    characters_file = open(f'{FANFIC_REPO}characters.txt', "r", encoding="utf-8")
+    characters = characters_file.readlines()
 
-    PERSON_1_INDEX = 0
-    PERSON_2_INDEX = 1
+    person_1_index = 0
+    person_2_index = 1
 
     for i in range(len(characters)):
         characters[i] = characters[i].replace('\n', '')
@@ -177,14 +180,14 @@ def main():
         if len(args_list) == 0:
             return "Error: bad input."
         if len(args_list) == 1:
-            if args_list[PERSON_1_INDEX].lower() == "random":
+            if args_list[person_1_index].lower() == "random":
                 person_1 = assign_name()
             else:
-                person_1 = args_list[PERSON_1_INDEX]
+                person_1 = args_list[person_1_index]
             person_2 = assign_name()
         else:
-            person_1 = args_list[PERSON_1_INDEX]
-            person_2 = args_list[PERSON_2_INDEX]
+            person_1 = args_list[person_1_index]
+            person_2 = args_list[person_2_index]
 
         with open(f"{FANFIC_REPO}corpus.json", 'r', encoding='utf-8-sig') as f:
             fanfic_model = markovify.Text.from_json(json.load(f))
