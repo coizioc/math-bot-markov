@@ -2,6 +2,7 @@ tokens/
 logs/
 json/
 rjson/
+fanfic/
 __pycache__
 *.txt
 *.json

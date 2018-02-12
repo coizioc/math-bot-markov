@@ -1,5 +1,4 @@
 #!/usr/bin/python3.6
-
 import os
 import json
 import platform
@@ -134,7 +133,6 @@ def main():
             return [msg, DEFAULT_NAME]
 
         nickname = ""
-
         for n in name:
             try:
                 with open(f"{repo}{n}.json", 'r', encoding='utf-8-sig') as f:
@@ -256,7 +254,6 @@ def main():
     with open(f"{BOT_TOKEN}", "r+") as bottoken:
         token = bottoken.read().strip()
         client.run(token)
-
 
 if __name__ == "__main__":
     main()
