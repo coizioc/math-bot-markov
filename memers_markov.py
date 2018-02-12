@@ -6,15 +6,18 @@ import platform
 import discord
 from discord.ext.commands import Bot
 import markovify
+import random
 from user_exceptions import AmbiguousInputError, NoUserInputError
 
 DEFAULT_NAME = "MemersMarkov"
 # I need the absolute path to work with crontab until I figure out how to gracefully do relative
 # imports that work with cron
 ABSPATH = '/home/austin/Documents/MemersMarkov'
+WINDOWS_FANFIC_REPO = ".\\fanfic\\"
 WINDOWS_MEMERS_REPO = ".\\json\\"
 WINDOWS_REDDIT_REPO = ".\\rjson\\"
 WINDOWS_BOT_TOKEN = ".\\tokens\\bottoken.txt"
+LINUX_FANFIC_REPO = f"{ABSPATH}/fanfic/"
 LINUX_MEMERS_REPO = f"{ABSPATH}/json/"
 LINUX_REDDIT_REPO = f"{ABSPATH}/rjson/"
 LINUX_BOT_TOKEN = f"{ABSPATH}/tokens/bottoken.txt"
@@ -56,6 +59,15 @@ def main():
     r_files = [f for f in os.listdir(REDDIT_REPO)]
     r_valid_names = [f[:-5] for f in r_files if f.find(".json") != -1]
 
+    CHARACTERS_FILE = open(f'{FANFIC_REPO}characters.txt', "r", encoding="utf-8")
+    characters = CHARACTERS_FILE.readlines()
+
+    PERSON_1_INDEX = 0
+    PERSON_2_INDEX = 1
+
+    for i in range(len(characters)):
+        characters[i] = characters[i].replace('\n', '')
+
     def parse_names(name_input, usable_names):
         """Returns a list of possible names from the name substring input."""
         name = []
@@ -92,7 +104,6 @@ def main():
 
         return models
 
-
     def generate_markov(args, reddit=False):
         """Generates the actual Markov ouput string from the list of args."""
         args_list = args.split(' ')
@@ -121,9 +132,9 @@ def main():
         except FileNotFoundError as no_file:
             msg = f"Error: File not found ({no_file.filename}.json)"
             return [msg, DEFAULT_NAME]
-        
+
         nickname = ""
-        
+
         for n in name:
             try:
                 with open(f"{repo}{n}.json", 'r', encoding='utf-8-sig') as f:
@@ -152,6 +163,51 @@ def main():
                 return [output, nickname.title()]
         else:
             return ['Error: insufficient data for Markov chain.', DEFAULT_NAME]
+
+    def assign_name():
+        """Assigns a name from a preloaded list of characters."""
+        index = random.randint(0,len(characters) - 1)
+        return characters[index]
+
+    def create_fanfic(args):
+        """Generates the fanfic from the list of args."""
+        args_list = args.split(' ')
+
+        person_1 = ""
+        person_2 = ""
+
+        if len(args_list) == 0:
+            return "Error: bad input."
+        if len(args_list) == 1:
+            if args_list[PERSON_1_INDEX].lower() == "random":
+                person_1 = assign_name()
+            else:
+                person_1 = args_list[PERSON_1_INDEX]
+            person_2 = assign_name()
+        else:
+            person_1 = args_list[PERSON_1_INDEX]
+            person_2 = args_list[PERSON_2_INDEX]
+
+        with open(f"{FANFIC_REPO}corpus.json", 'r', encoding='utf-8-sig') as f:
+            fanfic_model = markovify.Text.from_json(json.load(f))
+
+        paragraph = ""
+
+        while len(paragraph) < 1800:
+            sentence = fanfic_model.make_sentence()
+
+            if len(paragraph) + len(sentence) + 1 < 1800:
+                paragraph += sentence + " "
+            else:
+                break
+
+        return paragraph.replace('$PERSON_1', person_1).replace('$PERSON_2', person_2)
+
+    @client.command()
+    async def fanfic(*, args: str):
+        """Command that generates and returns a Markov fanfic for the given/randomly chosen names."""
+        output = create_fanfic(args)
+        await client.say(output)
 
     @client.command()
     async def mk(*, args: str):
@@ -200,6 +256,7 @@ def main():
     with open(f"{BOT_TOKEN}", "r+") as bottoken:
         token = bottoken.read().strip()
         client.run(token)
+
 
 if __name__ == "__main__":
     main()
