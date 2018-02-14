@@ -67,6 +67,11 @@ def main():
     person_1_index = 0
     person_2_index = 1
 
+    max_fanfic_length = 1800
+    max_nickname_length = 30
+    max_num_of_names = 10
+    max_markov_attempts = 10
+
     for i in range(len(characters)):
         characters[i] = characters[i].replace('\n', '')
 
@@ -110,7 +115,7 @@ def main():
         """Generates the actual Markov ouput string from the list of args."""
         args_list = args.split(' ')
         name_input = args_list[0].split('+')
-        if len(name_input) > 10:
+        if len(name_input) > max_num_of_names:
             return ['Error: too many inputs. ({num_names})'.format(num_names=len(name_input)), DEFAULT_NAME]
         root = ''.join([args_list[1] if len(args_list) > 1 else ''])
 
@@ -135,7 +140,7 @@ def main():
             msg = f"Error: File not found ({no_file.filename}.json)"
             return [msg, DEFAULT_NAME]
 
-        nickname = ""
+        nickname = ''
         for n in name:
             try:
                 with open(f"{repo}{n}.json", 'r', encoding='utf-8-sig') as f:
@@ -143,23 +148,23 @@ def main():
             except FileNotFoundError:
                 return ['Error: File not found ({name}.json)'.format(name=n), DEFAULT_NAME]
 
-            if len(nickname) + len(n) + 1 <= 30:
-                nickname += n + "+"
+            if len(nickname) + len(n) < max_nickname_length:
+                nickname += n + '+'
 
-        if len(nickname[:-1].split('+')) < len(name):
-            nickname += str(len(name) - len(nickname[:-1].split('+')))
+        num_of_names_in_nickname = nickname[:-1].split('+')
+
+        if len(num_of_names_in_nickname) < len(name):
+            nickname += str(len(name) - num_of_names_in_nickname)
         else:
             nickname = nickname[:-1]
 
         text_model = markovify.combine(models)
 
-        for _ in range(50):
-            output = None
-
-            if root == "":
-                output = text_model.make_sentence(tries=10)
+        for _ in range(max_markov_attempts):
+            if root == '':
+                output = text_model.make_sentence(tries=max_markov_attempts)
             else:
-                output = text_model.make_sentence_with_start(root, tries=10, strict=False)
+                output = text_model.make_sentence_with_start(root, tries=max_markov_attempts, strict=False)
             if output is not None:
                 return [output, nickname.title()]
         else:
@@ -173,9 +178,6 @@ def main():
     def create_fanfic(args):
         """Generates the fanfic from the list of args."""
         args_list = args.split(' ')
-
-        person_1 = ""
-        person_2 = ""
 
         if len(args_list) == 0:
             return "Error: bad input."
@@ -194,11 +196,11 @@ def main():
 
         paragraph = ""
 
-        while len(paragraph) < 1800:
-            sentence = fanfic_model.make_sentence()
+        while len(paragraph) < max_fanfic_length:
+            sentence = fanfic_model.make_sentence() + " "
 
-            if len(paragraph) + len(sentence) + 1 < 1800:
-                paragraph += sentence + " "
+            if len(paragraph) + len(sentence) < max_fanfic_length:
+                paragraph += sentence
             else:
                 break
 
@@ -238,6 +240,11 @@ def main():
     async def pingcoiz():
         """Pings the Markov bot creator."""
         await client.say(f"<@!293219528450637824> :steam_locomotive: girl btw")
+
+    @client.command()
+    async def pingmath():
+        """Pings the Markov bot host."""
+        await client.say(f"<@!215367025705484289> :robot: guy btw")
 
     @client.command()
     async def listmarkov():
