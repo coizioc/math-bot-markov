@@ -1,6 +1,5 @@
 """Builds Markov chains from Discord chat history and provides a bot command interface
 to display them."""
-import gzip
 import json
 import os
 import random
@@ -39,24 +38,7 @@ class AmbiguousInputError(Exception):
         self.name = name
         self.output = output
     # pass
-
-def compress_json(file):
-    """"Compresses a json file into a gzip file."""
-    with open(f"{file}.json", 'r', encoding='utf-8-sig') as json_file:
-        data = json.load(json_file)
-
-    text = json.dumps(data) + "\n"
-    json_bytes = text.encode('utf-8')
-
-    with gzip.GzipFile(file, 'w') as compressed_file:
-        compressed_file.write(json_bytes)
-
-def decompress_json(file):
-    """Decompresses a gzip file into a json file."""
-    with gzip.GzipFile(file, 'r') as compressed_file:
-        json_bytes = compressed_file.read()
-
-    return json_bytes.decode('utf-8')
+    
 
 def parse_names(names_input, valid_names):
     """Returns a list of possible names from the name substring input."""
