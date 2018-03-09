@@ -14,8 +14,9 @@ MAX_NICKNAME_LENGTH = 30
 MAX_NUM_OF_NAMES = 10
 MAX_MARKOV_ATTEMPTS = 10
 
-PEOPLE_REPO = './cogs/markov/resources/people/'
-FANFIC_REPO = './cogs/markov/resources/fanfic/'
+PEOPLE_REPO = './cogfiles/markov/people/'
+FANFIC_REPO = './cogfiles/markov/fanfic/'
+CASAL_FILE = './cogfiles/markov/casallist.txt'
 
 MARKOV_PEOPLE = [f for f in os.listdir(PEOPLE_REPO)]
 VALID_NAMES = [f[:-5] for f in MARKOV_PEOPLE if f.find('.json') != -1]
@@ -26,19 +27,19 @@ CHARACTERS = CHARACTERS_FILE.readlines()
 for c in CHARACTERS:
     c = c.rstrip()
 
+
 class NameNotFoundError(Exception):
     """Error raised for input that refers to no user."""
     def __init__(self, name):
         self.name = name
-    # pass
+
 
 class AmbiguousInputError(Exception):
     """Error raised for input that refers to multiple users"""
     def __init__(self, name, output):
         self.name = name
         self.output = output
-    # pass
-    
+
 
 def parse_names(names_input, valid_names):
     """Returns a list of possible names from the name substring input."""
@@ -54,7 +55,7 @@ def parse_names(names_input, valid_names):
             if name in valid_name:
                 current_name.append(valid_name)
         else:
-            if current_name == "":
+            if current_name == '':
                 raise NameNotFoundError(name)
             elif len(current_name) == 1:
                 names.append(current_name[0])
@@ -62,6 +63,7 @@ def parse_names(names_input, valid_names):
                 raise AmbiguousInputError(name, current_name)
     else:
         return names
+
 
 def generate_models(repo, names):
     """Generates a Markov model from a given json message repo and a name."""
@@ -75,8 +77,9 @@ def generate_models(repo, names):
 
     return models
 
+
 def generate_markov(person, root):
-    """Using a Markov model, generate a text string."""
+    """Using a Markov model, generates a text string."""
     namelist = person.split('+')
     num_names = len(namelist)
     if num_names > MAX_NUM_OF_NAMES:
@@ -120,10 +123,12 @@ def generate_markov(person, root):
     else:
         return ['Error: insufficient data for Markov chain.', DEFAULT_NAME]
 
+
 def assign_name():
     """Assigns a name from a pre-loaded list of characters."""
     index = random.randint(0, len(CHARACTERS) - 1)
     return CHARACTERS[index]
+
 
 def generate_fanfic(person1, person2):
     """Generates a fanfic with the given people."""
@@ -146,6 +151,25 @@ def generate_fanfic(person1, person2):
             break
 
     return paragraph.replace('$PERSON_1', person1).replace('$PERSON_2', person2).replace('\n', '')
+
+
+def format_casal(casal_list):
+    header = '```\n-----------\nCasal List:\n-----------\n\n'
+
+    names = ''
+    for index, name in enumerate(casal_list, 1):
+        names += f'{index}. {name}'
+
+    footer = '''
+ * indicates that this perosn was outdpsed in a pvm situation with more than two people.
+** indicates that this person is a nitpicky ass.
+
+Type '$casal help' for more information on what this is.```'''
+
+    out = header + names + footer
+
+    return out
+
 
 class Markov():
     """Defines Markov commands."""
@@ -183,12 +207,55 @@ class Markov():
                 message += valid_name + ', '
             else:
                 out.append(message[:-2])
-                print(out)
                 message = valid_name + ', '
         else:
             out.append(message[:-2])
         for i in range(len(out)):
             await ctx.send(out[i])
+
+    @commands.group(invoke_without_command=True)
+    async def casal(self, ctx):
+        """Displays the Casal List."""
+        with open(CASAL_FILE, 'r') as file:
+            casal_list = file.readlines()
+        await ctx.send(format_casal(casal_list))
+
+    @casal.command(name='help')
+    async def _help(self, ctx):
+        """Explains what the Casal List is."""
+        msg = '''```The Casal List is the list of people who have been outdpsed by Coizioc, a known shit pvmer.
+If a person is on this list, then logically, that person must be worse than her in every way
+possible. To get onto this list, she must have outdpsed you at least once. The reason as to why
+this occurs is irrelevant. It is called the Casal list because Casal is the first person she ever outdpsed.```'''
+        await ctx.send(msg)
+
+    @casal.command(name='add', hidden=True)
+    @commands.is_owner()
+    async def _add(self, ctx, name):
+        """Adds a name to the Casal List."""
+        with open(CASAL_FILE, 'a+') as file:
+            file.write(name.rstrip() + '\n')
+        await ctx.send(f"{name} successfully added to the Casal List.")
+
+    @casal.command(name='remove', hidden=True)
+    @commands.is_owner()
+    async def _remove(self, ctx, name):
+        """Removes a name from the Casal List."""
+        with open(CASAL_FILE, 'r+') as infile:
+            list = infile.read().splitlines()
+        if name in list:
+            try:
+                list.remove(name)
+                out = ''
+                for n in list:
+                    out += n + '\n'
+                with open(CASAL_FILE, 'w') as outfile:
+                    outfile.write(out)
+                await ctx.send(f"{name} successfully removed from the Casal List.")
+            except Exception:
+                await ctx.send(f"Error: Unknown error.")
+        else:
+            await ctx.send(f"Error: {name} not found.")
 
     @commands.command(hidden=True)
     async def pingcoiz(self, ctx):
@@ -199,6 +266,7 @@ class Markov():
     async def pingmath(self, ctx):
         """Pings the host of Mathbot."""
         await ctx.send(f"<@!215367025705484289> :robot: boy btw")
+
 
 def setup(bot):
     """Adds the cog to the bot."""
