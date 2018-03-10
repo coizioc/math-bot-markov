@@ -9,14 +9,16 @@ import markovify
 
 DEFAULT_NAME = 'MathBot'
 
+MARKOV_MODULE_CREATORS_ID = 293219528450637824
+
 MAX_MESSAGE_LENGTH = 1800
 MAX_NICKNAME_LENGTH = 30
 MAX_NUM_OF_NAMES = 10
 MAX_MARKOV_ATTEMPTS = 10
 
-PEOPLE_REPO = './cogfiles/markov/people/'
-FANFIC_REPO = './cogfiles/markov/fanfic/'
-CASAL_FILE = './cogfiles/markov/casallist.txt'
+PEOPLE_REPO = './cogs/markov/resources/people/'
+FANFIC_REPO = './cogs/markov/resources/fanfic/'
+CASAL_FILE = './cogs/markov/resources/casallist.txt'
 
 MARKOV_PEOPLE = [f for f in os.listdir(PEOPLE_REPO)]
 VALID_NAMES = [f[:-5] for f in MARKOV_PEOPLE if f.find('.json') != -1]
@@ -55,7 +57,7 @@ def parse_names(names_input, valid_names):
             if name in valid_name:
                 current_name.append(valid_name)
         else:
-            if current_name == '':
+            if not current_name:
                 raise NameNotFoundError(name)
             elif len(current_name) == 1:
                 names.append(current_name[0])
@@ -160,11 +162,9 @@ def format_casal(casal_list):
     for index, name in enumerate(casal_list, 1):
         names += f'{index}. {name}'
 
-    footer = '''
- * indicates that this perosn was outdpsed in a pvm situation with more than two people.
-** indicates that this person is a nitpicky ass.
-
-Type '$casal help' for more information on what this is.```'''
+    footer = ("\n * indicates that this perosn was outdpsed in a pvm situation with more than two people.\n"
+              "** indicates that this person is a nitpicky ass.\n\n"
+              "Type '$casal help' for more information on what this is.```")
 
     out = header + names + footer
 
@@ -223,39 +223,46 @@ class Markov():
     @casal.command(name='help')
     async def _help(self, ctx):
         """Explains what the Casal List is."""
-        msg = '''```The Casal List is the list of people who have been outdpsed by Coizioc, a known shit pvmer.
-If a person is on this list, then logically, that person must be worse than her in every way
-possible. To get onto this list, she must have outdpsed you at least once. The reason as to why
-this occurs is irrelevant. It is called the Casal list because Casal is the first person she ever outdpsed.```'''
+        msg = ("```The Casal List is the list of people who have been outdpsed by Coizioc, a known shit pvmer. "
+               "If a person is on this list, then logically, that person must be worse than her in every way "
+               "possible. To get onto this list, she must have outdpsed you at least once. The reason as to why "
+               "this occurs is irrelevant. It is called the Casal list because Casal is the first person she "
+               "ever outdpsed.```")
         await ctx.send(msg)
 
     @casal.command(name='add', hidden=True)
-    @commands.is_owner()
     async def _add(self, ctx, name):
         """Adds a name to the Casal List."""
-        with open(CASAL_FILE, 'a+') as file:
-            file.write(name.rstrip() + '\n')
-        await ctx.send(f"{name} successfully added to the Casal List.")
+        print(ctx.author.id)
+        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
+            with open(CASAL_FILE, 'a+') as file:
+                file.write(name.rstrip() + '\n')
+            await ctx.send(f"{name} successfully added to the Casal List.")
+        else:
+            await ctx.send(f"Error: You do not have permission to use this command.")
 
     @casal.command(name='remove', hidden=True)
-    @commands.is_owner()
     async def _remove(self, ctx, name):
         """Removes a name from the Casal List."""
-        with open(CASAL_FILE, 'r+') as infile:
-            list = infile.read().splitlines()
-        if name in list:
-            try:
-                list.remove(name)
-                out = ''
-                for n in list:
-                    out += n + '\n'
-                with open(CASAL_FILE, 'w') as outfile:
-                    outfile.write(out)
-                await ctx.send(f"{name} successfully removed from the Casal List.")
-            except Exception:
-                await ctx.send(f"Error: Unknown error.")
+        print(ctx.author.id)
+        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
+            with open(CASAL_FILE, 'r+') as infile:
+                list = infile.read().splitlines()
+            if name in list:
+                try:
+                    list.remove(name)
+                    out = ''
+                    for n in list:
+                        out += n + '\n'
+                    with open(CASAL_FILE, 'w') as outfile:
+                        outfile.write(out)
+                    await ctx.send(f"{name} successfully removed from the Casal List.")
+                except Exception:
+                    await ctx.send(f"Error: Unknown error.")
+            else:
+                await ctx.send(f"Error: {name} not found.")
         else:
-            await ctx.send(f"Error: {name} not found.")
+            await ctx.send(f"Error: You do not have permission to use this command.")
 
     @commands.command(hidden=True)
     async def pingcoiz(self, ctx):
