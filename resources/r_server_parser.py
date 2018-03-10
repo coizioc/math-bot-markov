@@ -3,7 +3,7 @@ import json
 
 PERMITTED_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
 
-f = open('runescape_general.txt', "r", encoding="utf-8-sig")
+f = open('./cogs/markov/resources/runescape_general.txt', "r", encoding="utf-8-sig")
 lines = f.readlines()
 
 names = []
@@ -45,5 +45,5 @@ for x in range(len(names)):
             for m in person_messages.split('\n'):
                 print(names[x] + ": " + m)
         cache = text_model.to_json()
-        with open(f"rjson/{names[x].lower()}.json", 'w') as f:
+        with open(f"./cogs/markov/resources/rjson/{names[x].lower()}.json", 'w') as f:
             json.dump(cache, f)

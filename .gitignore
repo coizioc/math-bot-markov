@@ -1,8 +1,4 @@
-tokens/
-logs/
-json/
-rjson/
-fanfic/
-__pycache__
+resources/json/
+resources/rjson/
 *.txt
 *.json
