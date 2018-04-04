@@ -189,9 +189,11 @@ def update_markov_people(new_messages, authors):
                 return f"Error: Unknown Error."
         else:
             print('User skipped due to inactivity.')
+    print("Updating Memers model...")
     memers_model = markovify.combine(models)
     with open(f"{PEOPLE_REPO}memers.json", 'w') as json_file:
         json.dump(memers_model.to_json(), json_file)
+    print("Update Successful.")
     return f"Corpus successfully updated with {num_of_messages} new messages, " \
            f"{num_of_updated_names} updated people, and {num_of_new_names} new people."
 
