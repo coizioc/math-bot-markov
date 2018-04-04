@@ -6,25 +6,34 @@ import random
 import discord
 from discord.ext import commands
 import markovify
+import datetime
+import traceback
 
 DEFAULT_NAME = 'MathBot'
-
-MARKOV_MODULE_CREATORS_ID = 293219528450637824
+FILTERED_PREFIXES = ('mk', 'rmk', 'markov', '$', '!', '--', 'fanfic', 'listmarkov', 'rlistmarkov')
 
 MAX_MESSAGE_LENGTH = 1800
 MAX_NICKNAME_LENGTH = 30
 MAX_NUM_OF_NAMES = 10
 MAX_MARKOV_ATTEMPTS = 10
 
-PEOPLE_REPO = './cogs/markov/resources/people/'
-FANFIC_REPO = './cogs/markov/resources/fanfic/'
-CASAL_FILE = './cogs/markov/resources/casallist.txt'
+RESOURCES_REPO = './cogs/markov/resources/'
+PEOPLE_REPO = f'{RESOURCES_REPO}people/'
+FANFIC_REPO = f'{RESOURCES_REPO}fanfic/'
+CASAL_FILE = f'{RESOURCES_REPO}casallist.txt'
+TIMESTAMP_FILE = f'{RESOURCES_REPO}lastupdate.txt'
+MARKOV_MODULE_CREATOR_ID_FILE = f'{RESOURCES_REPO}markovcreatorid.txt'
 
 MARKOV_PEOPLE = [f for f in os.listdir(PEOPLE_REPO)]
 VALID_NAMES = [f[:-5] for f in MARKOV_PEOPLE if f.find('.json') != -1]
 
 CHARACTERS_FILE = open(f'{FANFIC_REPO}characters.txt', 'r', encoding='utf-8')
 CHARACTERS = CHARACTERS_FILE.readlines()
+
+with open(MARKOV_MODULE_CREATOR_ID_FILE, 'r') as f:
+    MARKOV_MODULE_CREATORS_ID = int(f.readline())
+
+PERMITTED_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
 
 for c in CHARACTERS:
     c = c.rstrip()
@@ -41,6 +50,18 @@ class AmbiguousInputError(Exception):
     def __init__(self, name, output):
         self.name = name
         self.output = output
+
+
+def save_timestamp(timestamp):
+    timestamp_string = timestamp.isoformat(' ')
+    with open(TIMESTAMP_FILE, 'w') as f:
+        f.write(timestamp_string)
+
+
+def load_timestamp():
+    with open(TIMESTAMP_FILE, 'r') as f:
+        timestamp_string = f.readline()
+    return datetime.datetime.strptime(timestamp_string, '%Y-%m-%d %H:%M:%S.%f')
 
 
 def parse_names(names_input, valid_names):
@@ -126,6 +147,55 @@ def generate_markov(person, root):
         return ['Error: insufficient data for Markov chain.', DEFAULT_NAME]
 
 
+def update_markov_people(new_messages, authors):
+    """Updates current Markov models and outputs them as .json files. It finally returns a confirmation message."""
+    num_of_new_names = 0
+    num_of_updated_names = 0
+    num_of_messages = len(new_messages)
+    models = []
+    print("Updating Markov models...")
+    for index, author in enumerate(authors, 1):
+        print(str(index) + "/" + str(len(authors)) + ": " + author.name)
+        corpus = ''
+        count = 0
+
+        for message in new_messages:
+            if message.author.id == author.id:
+                corpus += message.content + '\n'
+                count += 1
+        if count > 2:
+            new_model = markovify.NewlineText(corpus)
+            models.append(new_model)
+            cleaned_name = "".join(c for c in author.name if c in PERMITTED_CHARS).lower()
+            try:
+                if cleaned_name in VALID_NAMES:
+                    num_of_updated_names += 1
+                    with open(f'{PEOPLE_REPO}{cleaned_name}.json', 'r', encoding='utf-8-sig') as json_file:
+                        original_model = markovify.NewlineText.from_json(json.load(json_file))
+                    updated_model = markovify.combine([original_model, new_model])
+                    new_json = updated_model.to_json()
+                    with open(f"{PEOPLE_REPO}{cleaned_name}.json", 'w') as json_file:
+                        json.dump(new_json, json_file)
+                else:
+                    new_json = new_model.to_json()
+                    VALID_NAMES.append(cleaned_name)
+                    num_of_new_names += 1
+                    with open(f"{PEOPLE_REPO}{cleaned_name}.json", 'w') as json_file:
+                        json.dump(new_json, json_file)
+            except FileNotFoundError:
+                return f"Error: File not found ({cleaned_name}.json)."
+            except Exception:
+                traceback.print_exc()
+                return f"Error: Unknown Error."
+        else:
+            print('User skipped due to inactivity.')
+    memers_model = markovify.combine(models)
+    with open(f"{PEOPLE_REPO}memers.json", 'w') as json_file:
+        json.dump(memers_model.to_json(), json_file)
+    return f"Corpus successfully updated with {num_of_messages} new messages, " \
+           f"{num_of_updated_names} updated people, and {num_of_new_names} new people."
+
+
 def assign_name():
     """Assigns a name from a pre-loaded list of characters."""
     index = random.randint(0, len(CHARACTERS) - 1)
@@ -162,7 +232,7 @@ def format_casal(casal_list):
     for index, name in enumerate(casal_list, 1):
         names += f'{index}. {name}'
 
-    footer = ("\n * indicates that this perosn was outdpsed in a pvm situation with more than two people.\n"
+    footer = ("\n * indicates that this person was outdpsed in a pvm situation with more than two people.\n"
               "** indicates that this person is a nitpicky ass.\n\n"
               "Type '$casal help' for more information on what this is.```")
 
@@ -184,9 +254,7 @@ class Markov():
         guilds = self.bot.guilds
         bot_self = discord.Member
         for guild in guilds:
-            if guild.id == 339514092106678273:
-                bot_self = guild.me
-            if guild.id == 408424622648721408:
+            if guild.id == 339514092106678273 or guild.id == 408424622648721408:
                 bot_self = guild.me
         await bot_self.edit(nick=out[1])
         await ctx.send(out[0])
@@ -233,7 +301,6 @@ class Markov():
     @casal.command(name='add', hidden=True)
     async def _add(self, ctx, name):
         """Adds a name to the Casal List."""
-        print(ctx.author.id)
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             with open(CASAL_FILE, 'a+') as file:
                 file.write(name.rstrip() + '\n')
@@ -242,25 +309,47 @@ class Markov():
             await ctx.send(f"Error: You do not have permission to use this command.")
 
     @casal.command(name='remove', hidden=True)
-    async def _remove(self, ctx, name):
+    async def _remove(self, ctx, removed_name):
         """Removes a name from the Casal List."""
-        print(ctx.author.id)
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             with open(CASAL_FILE, 'r+') as infile:
-                list = infile.read().splitlines()
-            if name in list:
+                casal_list = infile.read().splitlines()
+            if removed_name in casal_list:
                 try:
-                    list.remove(name)
+                    casal_list.remove(removed_name)
                     out = ''
-                    for n in list:
-                        out += n + '\n'
+                    for name in casal_list:
+                        out += name + '\n'
                     with open(CASAL_FILE, 'w') as outfile:
                         outfile.write(out)
-                    await ctx.send(f"{name} successfully removed from the Casal List.")
+                    await ctx.send(f"{removed_name} successfully removed from the Casal List.")
                 except Exception:
                     await ctx.send(f"Error: Unknown error.")
             else:
-                await ctx.send(f"Error: {name} not found.")
+                await ctx.send(f"Error: {removed_name} not found.")
+        else:
+            await ctx.send(f"Error: You do not have permission to use this command.")
+
+    @commands.command(aliases=['um'], hidden=True)
+    async def updatemarkov(self, ctx):
+        """Updates the corpus for the Markov module."""
+        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
+            print("Beginning update...")
+            new_messages = []
+            authors = []
+            last_timestamp = load_timestamp()
+            print("Fetching history...")
+            history = await ctx.channel.history(after=last_timestamp, limit=None).flatten()
+            print("Filtering messages...")
+            for message in history:
+                if not message.content.startswith(FILTERED_PREFIXES) and not message.author.bot:
+                    new_messages.append(message)
+                    authors.append(message.author)
+                    creation_time = message.created_at
+                    if creation_time > last_timestamp:
+                        last_timestamp = creation_time
+            await ctx.send(update_markov_people(new_messages, set(authors)))
+            save_timestamp(last_timestamp)
         else:
             await ctx.send(f"Error: You do not have permission to use this command.")
 
