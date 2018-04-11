@@ -1,6 +1,6 @@
 """Builds Markov chains from Discord chat history and provides a bot command interface
 to display them."""
-import json
+import ujson
 import os
 import random
 import discord
@@ -17,7 +17,7 @@ MAX_NICKNAME_LENGTH = 30
 MAX_NUM_OF_NAMES = 10
 MAX_MARKOV_ATTEMPTS = 10
 
-RESOURCES_REPO = './cogs/markov/resources/'
+RESOURCES_REPO = './subs/markov/resources/'
 PEOPLE_REPO = f'{RESOURCES_REPO}people/'
 FANFIC_REPO = f'{RESOURCES_REPO}fanfic/'
 CASAL_FILE = f'{RESOURCES_REPO}casallist.txt'
@@ -94,7 +94,7 @@ def generate_models(repo, names):
     for name in names:
         try:
             with open(f'{repo}{name}.json', 'r', encoding='utf-8-sig') as json_file:
-                models.append(markovify.Text.from_json(json.load(json_file)))
+                models.append(markovify.Text.from_json(ujson.load(json_file)))
         except FileNotFoundError:
             raise FileNotFoundError()
 
@@ -171,17 +171,17 @@ def update_markov_people(new_messages, authors):
                 if cleaned_name in VALID_NAMES:
                     num_of_updated_names += 1
                     with open(f'{PEOPLE_REPO}{cleaned_name}.json', 'r', encoding='utf-8-sig') as json_file:
-                        original_model = markovify.NewlineText.from_json(json.load(json_file))
+                        original_model = markovify.NewlineText.from_json(ujson.load(json_file))
                     updated_model = markovify.combine([original_model, new_model])
                     new_json = updated_model.to_json()
                     with open(f"{PEOPLE_REPO}{cleaned_name}.json", 'w') as json_file:
-                        json.dump(new_json, json_file)
+                        ujson.dump(new_json, json_file)
                 else:
                     new_json = new_model.to_json()
                     VALID_NAMES.append(cleaned_name)
                     num_of_new_names += 1
                     with open(f"{PEOPLE_REPO}{cleaned_name}.json", 'w') as json_file:
-                        json.dump(new_json, json_file)
+                        ujson.dump(new_json, json_file)
             except FileNotFoundError:
                 return f"Error: File not found ({cleaned_name}.json)."
             except Exception:
@@ -192,7 +192,7 @@ def update_markov_people(new_messages, authors):
     print("Updating Memers model...")
     memers_model = markovify.combine(models)
     with open(f"{PEOPLE_REPO}memers.json", 'w') as json_file:
-        json.dump(memers_model.to_json(), json_file)
+        ujson.dump(memers_model.to_json(), json_file)
     print("Update Successful.")
     return f"Corpus successfully updated with {num_of_messages} new messages, " \
            f"{num_of_updated_names} updated people, and {num_of_new_names} new people."
@@ -212,7 +212,7 @@ def generate_fanfic(person1, person2):
         person2 = assign_name()
 
     with open(f'{FANFIC_REPO}corpus.json', 'r', encoding='utf-8-sig') as json_file:
-        fanfic_model = markovify.Text.from_json(json.load(json_file))
+        fanfic_model = markovify.Text.from_json(ujson.load(json_file))
 
     paragraph = ''
 
