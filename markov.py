@@ -23,21 +23,37 @@ FANFIC_REPO = f'{RESOURCES_REPO}fanfic/'
 CASAL_FILE = f'{RESOURCES_REPO}casallist.txt'
 TIMESTAMP_FILE = f'{RESOURCES_REPO}lastupdate.txt'
 MARKOV_MODULE_CREATOR_ID_FILE = f'{RESOURCES_REPO}markovcreatorid.txt'
+MASCULINE_WORDS_FILE = f'{FANFIC_REPO}masculinewords.txt'
+FEMININE_WORDS_FILE = f'{FANFIC_REPO}femininewords.txt'
+CHARACTERS_FILE = f'{FANFIC_REPO}characters.txt'
+COMMON_WORDS_FILE = f'{RESOURCES_REPO}commonwords.txt'
 
 MARKOV_PEOPLE = [f for f in os.listdir(PEOPLE_REPO)]
 VALID_NAMES = [f[:-5] for f in MARKOV_PEOPLE if f.find('.json') != -1]
 
-CHARACTERS_FILE = open(f'{FANFIC_REPO}characters.txt', 'r', encoding='utf-8')
-CHARACTERS = CHARACTERS_FILE.readlines()
+MAN_TAGS = {'man', 'male', 'masculine', 'guy', 'boy', 'm'}
+WOMAN_TAGS = ('woman', 'female', 'feminine', 'girl', 'f')
+
+with open(MASCULINE_WORDS_FILE, 'r', encoding='utf-8') as f:
+    MASCULINE_WORDS = f.read().splitlines()
+
+with open(FEMININE_WORDS_FILE, 'r', encoding='utf-8') as f:
+    FEMININE_WORDS = f.read().splitlines()
+
+with open(CHARACTERS_FILE, 'r', encoding='utf-8') as f:
+    CHARACTERS = f.read().splitlines()
 
 with open(MARKOV_MODULE_CREATOR_ID_FILE, 'r') as f:
     MARKOV_MODULE_CREATORS_ID = int(f.readline())
 
+# Below snippet was intended for use with content-aware fanfic generation. See commented-out snippet in
+# generate_fanfic() for more information. If implemented, this snippet must also be uncommented in addition to below.
+#
+# with open(COMMON_WORDS_FILE, 'r') as f:
+#     COMMON_WORDS = f.read().splitlines()
+
 PERMITTED_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
-
-for c in CHARACTERS:
-    c = c.rstrip()
-
+PERMISSION_ERROR_STRING = f'Error: You do not have permission to use this command.'
 
 class NameNotFoundError(Exception):
     """Error raised for input that refers to no user."""
@@ -204,27 +220,100 @@ def assign_name():
     return CHARACTERS[index]
 
 
-def generate_fanfic(person1, person2):
-    """Generates a fanfic with the given people."""
+def is_valid_sentence(homosexual, gay, sentence, gender1_tag):
+    """Determines based on the type of relationship whether a given sentence makes logical sense within a fanfic."""
+    tags = [word for word in sentence.split() if word[0:1] is '$']
+    is_tags_same_length = True
+    if len(tags) > 0:
+        tag_len = len(tags[0])
+        if len(gender1_tag) != tag_len:
+            is_tags_same_length = False
+        else:
+            for tag in tags:
+                if tag_len != len(tag):
+                    is_tags_same_length = False
+
+    if not homosexual and 'ALE2' in sentence:
+        return False
+    elif homosexual and not is_tags_same_length:
+        return False
+    elif homosexual and gay and any(word in sentence.lower() for word in FEMININE_WORDS):
+        return False
+    elif homosexual and not gay and any(word in sentence.lower() for word in MASCULINE_WORDS):
+        return False
+    else:
+        return True
+
+
+def generate_fanfic(person1, person2, gender1, gender2):
+    """Generates a fanfic with the given people and genders."""
     if person1 is None:
         person1 = assign_name()
     if person2 is None:
         person2 = assign_name()
 
-    with open(f'{FANFIC_REPO}corpus.json', 'r', encoding='utf-8-sig') as json_file:
+    homosexual = False
+    gay = False
+
+    if gender1.lower() in MAN_TAGS:
+        gender1_tag = '$MALE1'
+        if gender2.lower() in MAN_TAGS:
+            gender2_tag = '$MALE2'
+            homosexual = True
+            gay = True
+        else:
+            gender2_tag = '$FEMALE1'
+    else:
+        gender1_tag = '$FEMALE1'
+        if gender2.lower() in MAN_TAGS:
+            gender2_tag = '$MALE1'
+        else:
+            gender2_tag = '$FEMALE2'
+            homosexual = True
+
+    with open(f'{FANFIC_REPO}fanficcorpus.json', 'r', encoding='utf-8-sig') as json_file:
         fanfic_model = markovify.Text.from_json(ujson.load(json_file))
 
+    fanfic_attempts = 0
     paragraph = ''
+    topic_of_previous_sentence = ''
 
     while len(paragraph) < MAX_MESSAGE_LENGTH:
         sentence = fanfic_model.make_sentence() + ' '
 
-        if len(paragraph) + len(sentence) < MAX_MESSAGE_LENGTH:
-            paragraph += sentence
-        else:
-            break
-
-    return paragraph.replace('$PERSON_1', person1).replace('$PERSON_2', person2).replace('\n', '')
+        if is_valid_sentence(homosexual, gay, sentence, gender1_tag):
+            if len(paragraph) + len(sentence) < MAX_MESSAGE_LENGTH:
+                paragraph += sentence
+                # This snippet of code is intended to add context-aware generation of fanfics. While it works, it tends
+                # to create less interesting and more repetitive paragraphs than leaving it out. If uncommented, the
+                # code reading the COMMON_WORDS file must be present and the relevant import code uncommented for this
+                # to work. In addition, the above line must be removed (paragraph += sentence).
+                #
+                # sentence_words = re.sub(r'([^\s\w]|_)+', '', sentence).lower().split()
+                # if topic_of_previous_sentence is '':
+                #     paragraph += sentence
+                #     while True:
+                #         topic_of_previous_sentence = sentence_words[random.randint(0, len(sentence_words) - 1)]
+                #         if topic_of_previous_sentence not in COMMON_WORDS:
+                #             break
+                # elif topic_of_previous_sentence in sentence_words:
+                #     paragraph += sentence
+                #     while True:
+                #         topic_of_previous_sentence = sentence_words[random.randint(0, len(sentence_words) - 1)]
+                #         if topic_of_previous_sentence not in COMMON_WORDS:
+                #             break
+            else:
+                if gender1_tag in paragraph and gender2_tag in paragraph:
+                    break
+                else:
+                    paragraph = ''
+                    fanfic_attempts += 1
+                    if fanfic_attempts > 5:
+                        break
+    if paragraph is not '':
+        return paragraph.replace(gender1_tag, person1).replace(gender2_tag, person2)
+    else:
+        return f'Error: Fanfic could not be created using tags {gender1_tag} and {gender2_tag}.'
 
 
 def format_casal(casal_list):
@@ -249,7 +338,7 @@ class Markov():
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['mk', 'rmk'])
+    @commands.group(aliases=['mk', 'rmk'], invoke_without_command=True)
     async def markov(self, ctx, person, root=None):
         """Generates a Markov chain based on a user's previous messages."""
         out = generate_markov(person, root)
@@ -261,10 +350,79 @@ class Markov():
         await bot_self.edit(nick=out[1])
         await ctx.send(out[0])
 
+    @markov.command(name='forcememers', hidden=True)
+    async def forcememers(self, ctx):
+        """Fixes the memers.json file if necessary by merging all the models in PEOPLE_REPO to a new memers.json"""
+        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
+            models = generate_models(PEOPLE_REPO, VALID_NAMES)
+            print(models)
+            memers_model = markovify.combine(models)
+            memers_json = memers_model.to_json()
+            with open(f"{PEOPLE_REPO}memers.json", 'w') as json_file:
+                ujson.dump(memers_json, json_file)
+            ctx.send('memers.json sucessfully updated.')
+        else:
+            await ctx.send(PERMISSION_ERROR_STRING)
+
+    @markov.command(name='rename', hidden=True)
+    async def rename_person(self, ctx, before_name, after_name):
+        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
+            before_name = before_name.lower()
+            after_name = after_name.lower()
+
+            if before_name in VALID_NAMES:
+                with open(f'{PEOPLE_REPO}{before_name}.json', 'r', encoding='utf-8-sig') as json_file:
+                    json_model = ujson.load(json_file)
+                with open(f"{PEOPLE_REPO}{after_name}.json", 'w') as json_file:
+                    ujson.dump(json_model, json_file)
+                await ctx.send(f'{before_name} successfully renamed to {after_name}!')
+            else:
+                await ctx.send(f'Error: Name not found ({before_name}).')
+        else:
+            await ctx.send(PERMISSION_ERROR_STRING)
+
+    @markov.command(name='merge', hidden=True)
+    async def merge_person(self, ctx, name1, name2, out_name):
+        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
+            name1 = name1.lower()
+            name2 = name2.lower()
+            out_name = out_name.lower()
+
+            if name1 in VALID_NAMES and name2 in VALID_NAMES:
+                if name1 == '' or name2 == '' or out_name == '':
+                    await ctx.send(f'Error: At least one argument is blank.')
+
+                with open(f'{PEOPLE_REPO}{name1}.json', 'r', encoding='utf-8-sig') as json_file:
+                    name1_model = markovify.NewlineText.from_json(ujson.load(json_file))
+                with open(f'{PEOPLE_REPO}{name2}.json', 'r', encoding='utf-8-sig') as json_file:
+                    name2_model = markovify.NewlineText.from_json(ujson.load(json_file))
+                new_model = markovify.combine([name1, name2])
+                new_json = new_model.to_json()
+                with open(f"{PEOPLE_REPO}{out_name}.json", 'w') as json_file:
+                    ujson.dump(new_json, json_file)
+                await ctx.send(f'{name1}.json and {name2}.json successfully merged to {out_name}.json!')
+            else:
+                await ctx.send(f'Error: Name not found ({before_name}).')
+        else:
+            await ctx.send(PERMISSION_ERROR_STRING)
+
+    @markov.command(name='remove', hidden=True)
+    async def remove_person(self, ctx, name):
+        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
+            name = name.lower()
+
+            if name in VALID_NAMES:
+                os.remove(f'{PEOPLE_REPO}{name}.json')
+                await ctx.send(f'{name}.json successfully removed!')
+            else:
+                await ctx.send(f'Error: Name not found ({before_name}).')
+        else:
+            await ctx.send(PERMISSION_ERROR_STRING)
+
     @commands.command(aliases=['ff'])
-    async def fanfic(self, ctx, person1=None, person2=None):
+    async def fanfic(self, ctx, person1=None, person2=None, gender1='man', gender2='woman'):
         """Generates a Markov chain based on works from fanfiction.net."""
-        out = generate_fanfic(person1, person2)
+        out = generate_fanfic(person1, person2, gender1, gender2)
         await ctx.send(out)
 
     @commands.command(aliases=['lm'])
@@ -308,7 +466,7 @@ class Markov():
                 file.write(name.rstrip() + '\n')
             await ctx.send(f"{name} successfully added to the Casal List.")
         else:
-            await ctx.send(f"Error: You do not have permission to use this command.")
+            await ctx.send(PERMISSION_ERROR_STRING)
 
     @casal.command(name='remove', hidden=True)
     async def _remove(self, ctx, removed_name):
@@ -330,13 +488,13 @@ class Markov():
             else:
                 await ctx.send(f"Error: {removed_name} not found.")
         else:
-            await ctx.send(f"Error: You do not have permission to use this command.")
+            await ctx.send(PERMISSION_ERROR_STRING)
 
     @commands.command(aliases=['um'], hidden=True)
     async def updatemarkov(self, ctx):
         """Updates the corpus for the Markov module."""
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
-            print("Beginning update...")
+            await ctx.send("Beginning update...")
             new_messages = []
             authors = []
             last_timestamp = load_timestamp()
@@ -353,7 +511,7 @@ class Markov():
             await ctx.send(update_markov_people(new_messages, set(authors)))
             save_timestamp(last_timestamp)
         else:
-            await ctx.send(f"Error: You do not have permission to use this command.")
+            await ctx.send(PERMISSION_ERROR_STRING)
 
     @commands.command(hidden=True)
     async def pingcoiz(self, ctx):
