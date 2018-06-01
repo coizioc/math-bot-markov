@@ -3,8 +3,10 @@ to display them."""
 import ujson
 import os
 import random
+import string
 import discord
 from discord.ext import commands
+from itertools import product
 import markovify
 import datetime
 import traceback
@@ -20,7 +22,6 @@ MAX_MARKOV_ATTEMPTS = 10
 RESOURCES_REPO = './subs/markov/resources/'
 PEOPLE_REPO = f'{RESOURCES_REPO}people/'
 FANFIC_REPO = f'{RESOURCES_REPO}fanfic/'
-CASAL_FILE = f'{RESOURCES_REPO}casallist.txt'
 TIMESTAMP_FILE = f'{RESOURCES_REPO}lastupdate.txt'
 MARKOV_MODULE_CREATOR_ID_FILE = f'{RESOURCES_REPO}markovcreatorid.txt'
 MASCULINE_WORDS_FILE = f'{FANFIC_REPO}masculinewords.txt'
@@ -31,7 +32,7 @@ COMMON_WORDS_FILE = f'{RESOURCES_REPO}commonwords.txt'
 MARKOV_PEOPLE = [f for f in os.listdir(PEOPLE_REPO)]
 VALID_NAMES = [f[:-5] for f in MARKOV_PEOPLE if f.find('.json') != -1]
 
-MAN_TAGS = {'man', 'male', 'masculine', 'guy', 'boy', 'm'}
+MAN_TAGS = ('man', 'male', 'masculine', 'guy', 'boy', 'm')
 WOMAN_TAGS = ('woman', 'female', 'feminine', 'girl', 'f')
 
 with open(MASCULINE_WORDS_FILE, 'r', encoding='utf-8') as f:
@@ -222,7 +223,12 @@ def assign_name():
 
 def is_valid_sentence(homosexual, gay, sentence, gender1_tag):
     """Determines based on the type of relationship whether a given sentence makes logical sense within a fanfic."""
-    tags = [word for word in sentence.split() if word[0:1] is '$']
+    sentence_words = [''.join(c for c in word if c not in string.punctuation) for word in sentence.lower().split()]
+    tags = [word.strip("'s") for word in sentence.split() if '$' in word]
+
+    if not homosexual and 'ALE2' in sentence:
+        return False
+
     is_tags_same_length = True
     if len(tags) > 0:
         tag_len = len(tags[0])
@@ -233,16 +239,20 @@ def is_valid_sentence(homosexual, gay, sentence, gender1_tag):
                 if tag_len != len(tag):
                     is_tags_same_length = False
 
-    if not homosexual and 'ALE2' in sentence:
+    if homosexual and not is_tags_same_length:
         return False
-    elif homosexual and not is_tags_same_length:
-        return False
-    elif homosexual and gay and any(word in sentence.lower() for word in FEMININE_WORDS):
-        return False
-    elif homosexual and not gay and any(word in sentence.lower() for word in MASCULINE_WORDS):
-        return False
-    else:
-        return True
+
+    if homosexual:
+        if gay:
+            for feminine_word, word in product(FEMININE_WORDS, sentence_words):
+                if word == feminine_word:
+                    return False
+        else:
+            for masculine_word, word in product(MASCULINE_WORDS, sentence_words):
+                print(masculine_word + ' ' + word)
+                if word == masculine_word:
+                    return False
+    return True
 
 
 def generate_fanfic(person1, person2, gender1, gender2):
@@ -252,8 +262,8 @@ def generate_fanfic(person1, person2, gender1, gender2):
     if person2 is None:
         person2 = assign_name()
 
-    homosexual = False
-    gay = False
+    homosexual = False   # 'homosexual' refers to whether the two partners are the same sex.
+    gay = False   # 'gay' refers to whether the two partners are men.
 
     if gender1.lower() in MAN_TAGS:
         gender1_tag = '$MALE1'
@@ -280,7 +290,6 @@ def generate_fanfic(person1, person2, gender1, gender2):
 
     while len(paragraph) < MAX_MESSAGE_LENGTH:
         sentence = fanfic_model.make_sentence() + ' '
-
         if is_valid_sentence(homosexual, gay, sentence, gender1_tag):
             if len(paragraph) + len(sentence) < MAX_MESSAGE_LENGTH:
                 paragraph += sentence
@@ -316,22 +325,6 @@ def generate_fanfic(person1, person2, gender1, gender2):
         return f'Error: Fanfic could not be created using tags {gender1_tag} and {gender2_tag}.'
 
 
-def format_casal(casal_list):
-    header = '```\n-----------\nCasal List:\n-----------\n\n'
-
-    names = ''
-    for index, name in enumerate(casal_list, 1):
-        names += f'{index}. {name}'
-
-    footer = ("\n * indicates that this person was outdpsed in a pvm situation with more than two people.\n"
-              "** indicates that this person is a nitpicky ass.\n\n"
-              "Type '$casal help' for more information on what this is.```")
-
-    out = header + names + footer
-
-    return out
-
-
 class Markov():
     """Defines Markov commands."""
 
@@ -351,7 +344,7 @@ class Markov():
         await ctx.send(out[0])
 
     @markov.command(name='forcememers', hidden=True)
-    async def forcememers(self, ctx):
+    async def markov_force(self, ctx):
         """Fixes the memers.json file if necessary by merging all the models in PEOPLE_REPO to a new memers.json"""
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             models = generate_models(PEOPLE_REPO, VALID_NAMES)
@@ -365,7 +358,7 @@ class Markov():
             await ctx.send(PERMISSION_ERROR_STRING)
 
     @markov.command(name='rename', hidden=True)
-    async def rename_person(self, ctx, before_name, after_name):
+    async def markov_rename(self, ctx, before_name, after_name):
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             before_name = before_name.lower()
             after_name = after_name.lower()
@@ -382,7 +375,7 @@ class Markov():
             await ctx.send(PERMISSION_ERROR_STRING)
 
     @markov.command(name='merge', hidden=True)
-    async def merge_person(self, ctx, name1, name2, out_name):
+    async def markov_merge(self, ctx, name1, name2, out_name):
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             name1 = name1.lower()
             name2 = name2.lower()
@@ -407,7 +400,7 @@ class Markov():
             await ctx.send(PERMISSION_ERROR_STRING)
 
     @markov.command(name='remove', hidden=True)
-    async def remove_person(self, ctx, name):
+    async def markov_remove(self, ctx, name):
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             name = name.lower()
 
@@ -419,14 +412,8 @@ class Markov():
         else:
             await ctx.send(PERMISSION_ERROR_STRING)
 
-    @commands.command(aliases=['ff'])
-    async def fanfic(self, ctx, person1=None, person2=None, gender1='man', gender2='woman'):
-        """Generates a Markov chain based on works from fanfiction.net."""
-        out = generate_fanfic(person1, person2, gender1, gender2)
-        await ctx.send(out)
-
-    @commands.command(aliases=['lm'])
-    async def listmarkov(self, ctx):
+    @markov.command(name='listmarkov')
+    async def markov_list(self, ctx):
         """Lists the people from which you can generate Markov chains."""
         out = []
         message = ''
@@ -441,57 +428,8 @@ class Markov():
         for i in range(len(out)):
             await ctx.send(out[i])
 
-    @commands.group(invoke_without_command=True)
-    async def casal(self, ctx):
-        """Displays the Casal List."""
-        with open(CASAL_FILE, 'r') as file:
-            casal_list = file.readlines()
-        await ctx.send(format_casal(casal_list))
-
-    @casal.command(name='help')
-    async def _help(self, ctx):
-        """Explains what the Casal List is."""
-        msg = ("```The Casal List is the list of people who have been outdpsed by Coizioc, a known shit pvmer. "
-               "If a person is on this list, then logically, that person must be worse than her in every way "
-               "possible. To get onto this list, she must have outdpsed you at least once. The reason as to why "
-               "this occurs is irrelevant. It is called the Casal list because Casal is the first person she "
-               "ever outdpsed.```")
-        await ctx.send(msg)
-
-    @casal.command(name='add', hidden=True)
-    async def _add(self, ctx, name):
-        """Adds a name to the Casal List."""
-        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
-            with open(CASAL_FILE, 'a+') as file:
-                file.write(name.rstrip() + '\n')
-            await ctx.send(f"{name} successfully added to the Casal List.")
-        else:
-            await ctx.send(PERMISSION_ERROR_STRING)
-
-    @casal.command(name='remove', hidden=True)
-    async def _remove(self, ctx, removed_name):
-        """Removes a name from the Casal List."""
-        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
-            with open(CASAL_FILE, 'r+') as infile:
-                casal_list = infile.read().splitlines()
-            if removed_name in casal_list:
-                try:
-                    casal_list.remove(removed_name)
-                    out = ''
-                    for name in casal_list:
-                        out += name + '\n'
-                    with open(CASAL_FILE, 'w') as outfile:
-                        outfile.write(out)
-                    await ctx.send(f"{removed_name} successfully removed from the Casal List.")
-                except Exception:
-                    await ctx.send(f"Error: Unknown error.")
-            else:
-                await ctx.send(f"Error: {removed_name} not found.")
-        else:
-            await ctx.send(PERMISSION_ERROR_STRING)
-
-    @commands.command(aliases=['um'], hidden=True)
-    async def updatemarkov(self, ctx):
+    @markov.command(name='updatemarkov', hidden=True)
+    async def markov_update(self, ctx):
         """Updates the corpus for the Markov module."""
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             await ctx.send("Beginning update...")
@@ -513,15 +451,11 @@ class Markov():
         else:
             await ctx.send(PERMISSION_ERROR_STRING)
 
-    @commands.command(hidden=True)
-    async def pingcoiz(self, ctx):
-        """Pings the creator of the Markov commands. Blame her if something goes wrong."""
-        await ctx.send(f"<@!293219528450637824> :steam_locomotive: girl btw")
-
-    @commands.command(hidden=True)
-    async def pingmath(self, ctx):
-        """Pings the host of Mathbot."""
-        await ctx.send(f"<@!215367025705484289> :robot: boy btw")
+    @commands.command(aliases=['ff'])
+    async def fanfic(self, ctx, person1=None, person2=None, gender1='man', gender2='woman'):
+        """Generates a paragraph of Markov sentences based on works from fanfiction.net."""
+        out = generate_fanfic(person1, person2, gender1, gender2)
+        await ctx.send(out)
 
 
 def setup(bot):
