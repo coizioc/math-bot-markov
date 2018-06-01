@@ -343,8 +343,8 @@ class Markov():
         await bot_self.edit(nick=out[1])
         await ctx.send(out[0])
 
-    @markov.command(name='forcememers', hidden=True)
-    async def markov_force(self, ctx):
+    @markov.command(name='force', hidden=True)
+    async def _force(self, ctx):
         """Fixes the memers.json file if necessary by merging all the models in PEOPLE_REPO to a new memers.json"""
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             models = generate_models(PEOPLE_REPO, VALID_NAMES)
@@ -358,16 +358,19 @@ class Markov():
             await ctx.send(PERMISSION_ERROR_STRING)
 
     @markov.command(name='rename', hidden=True)
-    async def markov_rename(self, ctx, before_name, after_name):
+    async def _rename(self, ctx, before_name, after_name):
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             before_name = before_name.lower()
-            after_name = after_name.lower()
 
             if before_name in VALID_NAMES:
+                after_name = "".join(c for c in after_name if c in PERMITTED_CHARS).lower()
                 with open(f'{PEOPLE_REPO}{before_name}.json', 'r', encoding='utf-8-sig') as json_file:
                     json_model = ujson.load(json_file)
                 with open(f"{PEOPLE_REPO}{after_name}.json", 'w') as json_file:
                     ujson.dump(json_model, json_file)
+                VALID_NAMES.remove(before_name)
+                VALID_NAMES.append(after_name)
+                os.remove(f'{PEOPLE_REPO}{before_name}.json')
                 await ctx.send(f'{before_name} successfully renamed to {after_name}!')
             else:
                 await ctx.send(f'Error: Name not found ({before_name}).')
@@ -375,24 +378,28 @@ class Markov():
             await ctx.send(PERMISSION_ERROR_STRING)
 
     @markov.command(name='merge', hidden=True)
-    async def markov_merge(self, ctx, name1, name2, out_name):
+    async def _merge(self, ctx, name1, name2, out_name):
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             name1 = name1.lower()
             name2 = name2.lower()
-            out_name = out_name.lower()
 
             if name1 in VALID_NAMES and name2 in VALID_NAMES:
                 if name1 == '' or name2 == '' or out_name == '':
                     await ctx.send(f'Error: At least one argument is blank.')
-
+                out_name = "".join(c for c in out_name if c in PERMITTED_CHARS).lower()
                 with open(f'{PEOPLE_REPO}{name1}.json', 'r', encoding='utf-8-sig') as json_file:
                     name1_model = markovify.NewlineText.from_json(ujson.load(json_file))
                 with open(f'{PEOPLE_REPO}{name2}.json', 'r', encoding='utf-8-sig') as json_file:
                     name2_model = markovify.NewlineText.from_json(ujson.load(json_file))
-                new_model = markovify.combine([name1, name2])
+                new_model = markovify.combine([name1_model, name2_model])
                 new_json = new_model.to_json()
                 with open(f"{PEOPLE_REPO}{out_name}.json", 'w') as json_file:
                     ujson.dump(new_json, json_file)
+                VALID_NAMES.remove(name1)
+                VALID_NAMES.remove(name2)
+                VALID_NAMES.append(out_name)
+                os.remove(f'{PEOPLE_REPO}{name1}.json')
+                os.remove(f'{PEOPLE_REPO}{name2}.json')
                 await ctx.send(f'{name1}.json and {name2}.json successfully merged to {out_name}.json!')
             else:
                 await ctx.send(f'Error: Name not found ({before_name}).')
@@ -400,20 +407,21 @@ class Markov():
             await ctx.send(PERMISSION_ERROR_STRING)
 
     @markov.command(name='remove', hidden=True)
-    async def markov_remove(self, ctx, name):
+    async def _remove(self, ctx, name):
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             name = name.lower()
 
             if name in VALID_NAMES:
                 os.remove(f'{PEOPLE_REPO}{name}.json')
+                VALID_NAMES.remove(name)
                 await ctx.send(f'{name}.json successfully removed!')
             else:
                 await ctx.send(f'Error: Name not found ({before_name}).')
         else:
             await ctx.send(PERMISSION_ERROR_STRING)
 
-    @markov.command(name='listmarkov')
-    async def markov_list(self, ctx):
+    @markov.command(name='listmarkov', aliases=['lm'])
+    async def _list(self, ctx):
         """Lists the people from which you can generate Markov chains."""
         out = []
         message = ''
@@ -428,8 +436,8 @@ class Markov():
         for i in range(len(out)):
             await ctx.send(out[i])
 
-    @markov.command(name='updatemarkov', hidden=True)
-    async def markov_update(self, ctx):
+    @markov.command(name='updatemarkov', aliases=['um'], hidden=True)
+    async def _update(self, ctx):
         """Updates the corpus for the Markov module."""
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             await ctx.send("Beginning update...")
