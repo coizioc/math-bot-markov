@@ -249,7 +249,6 @@ def is_valid_sentence(homosexual, gay, sentence, gender1_tag):
                     return False
         else:
             for masculine_word, word in product(MASCULINE_WORDS, sentence_words):
-                print(masculine_word + ' ' + word)
                 if word == masculine_word:
                     return False
     return True
