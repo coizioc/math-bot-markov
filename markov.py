@@ -3,6 +3,7 @@ to display them."""
 import ujson
 import os
 import random
+import re
 import string
 import discord
 from discord.ext import commands
@@ -345,11 +346,20 @@ class Markov():
         if REFLEXIVE_TAG in person:
             person = person.replace(REFLEXIVE_TAG, ctx.author.name)
         out = generate_markov(person, root)
+        user_tags = set([c for c in out[0].split(' ') if c[0:2] == '<@'])
         guilds = self.bot.guilds
         bot_self = discord.Member
         for guild in guilds:
             if guild.id == 339514092106678273 or guild.id == 408424622648721408:
                 bot_self = guild.me
+                for user_tag in user_tags:
+                    id = int(re.sub('\D','',user_tag))
+                    username = guild.get_member(id)
+                    if username is not None:
+                        username = username.display_name
+                        out[0] = out[0].replace(user_tag, '@' + username)
+                    elif user_tag in out[0]:
+                        out[0] = out.replace(user_tag, "@UNKNOWN_USER")
         await bot_self.edit(nick=out[1])
         await ctx.send(out[0])
 
