@@ -12,12 +12,13 @@ import datetime
 import traceback
 
 DEFAULT_NAME = 'MathBot'
-FILTERED_PREFIXES = ('mk', 'rmk', 'markov', '$', '!', '--', 'fanfic', 'listmarkov', 'rlistmarkov')
+FILTERED_PREFIXES = ('mk', 'rmk', 'markov', '$', '!', '~', '--', 'fanfic', 'listmarkov', 'rlistmarkov')
 
 MAX_MESSAGE_LENGTH = 1800
 MAX_NICKNAME_LENGTH = 30
 MAX_NUM_OF_NAMES = 10
 MAX_MARKOV_ATTEMPTS = 10
+REFLEXIVE_TAG = 'me'
 
 RESOURCES_REPO = './subs/markov/resources/'
 PEOPLE_REPO = f'{RESOURCES_REPO}people/'
@@ -87,7 +88,6 @@ def parse_names(names_input, valid_names):
 
     for name in names_input:
         current_name = []
-
         for valid_name in valid_names:
             if name == valid_name:
                 names.append(valid_name)
@@ -120,7 +120,7 @@ def generate_models(repo, names):
 
 def generate_markov(person, root):
     """Using a Markov model, generates a text string."""
-    namelist = person.split('+')
+    namelist = person.lower().split('+')
     num_names = len(namelist)
     if num_names > MAX_NUM_OF_NAMES:
         return [f'Error: Too many inputs ({num_names}).', DEFAULT_NAME]
@@ -331,8 +331,10 @@ class Markov():
         self.bot = bot
 
     @commands.group(aliases=['mk', 'rmk'], invoke_without_command=True)
-    async def markov(self, ctx, person, root=None):
+    async def markov(self, ctx, person=REFLEXIVE_TAG, root=None):
         """Generates a Markov chain based on a user's previous messages."""
+        if REFLEXIVE_TAG in person:
+            person = person.replace(REFLEXIVE_TAG, ctx.author.name)
         out = generate_markov(person, root)
         guilds = self.bot.guilds
         bot_self = discord.Member
