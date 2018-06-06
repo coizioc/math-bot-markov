@@ -19,6 +19,7 @@ MAX_NICKNAME_LENGTH = 30
 MAX_NUM_OF_NAMES = 10
 MAX_MARKOV_ATTEMPTS = 10
 REFLEXIVE_TAG = 'me'
+RANDOM_TAG = 'rand'
 
 RESOURCES_REPO = './subs/markov/resources/'
 PEOPLE_REPO = f'{RESOURCES_REPO}people/'
@@ -57,6 +58,7 @@ with open(MARKOV_MODULE_CREATOR_ID_FILE, 'r') as f:
 PERMITTED_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
 PERMISSION_ERROR_STRING = f'Error: You do not have permission to use this command.'
 
+
 class NameNotFoundError(Exception):
     """Error raised for input that refers to no user."""
     def __init__(self, name):
@@ -88,19 +90,22 @@ def parse_names(names_input, valid_names):
 
     for name in names_input:
         current_name = []
-        for valid_name in valid_names:
-            if name == valid_name:
-                names.append(valid_name)
-                break
-            if name in valid_name:
-                current_name.append(valid_name)
+        if name == RANDOM_TAG:
+            names.append(random.choice(VALID_NAMES))
         else:
-            if not current_name:
-                raise NameNotFoundError(name)
-            elif len(current_name) == 1:
-                names.append(current_name[0])
+            for valid_name in valid_names:
+                if name == valid_name:
+                    names.append(valid_name)
+                    break
+                if name in valid_name:
+                    current_name.append(valid_name)
             else:
-                raise AmbiguousInputError(name, current_name)
+                if not current_name:
+                    raise NameNotFoundError(name)
+                elif len(current_name) == 1:
+                    names.append(current_name[0])
+                else:
+                    raise AmbiguousInputError(name, current_name)
     else:
         return names
 
@@ -260,6 +265,10 @@ def generate_fanfic(person1, person2, gender1, gender2):
         person1 = assign_name()
     if person2 is None:
         person2 = assign_name()
+    if person1 == RANDOM_TAG:
+        person1 = random.choice(VALID_NAMES).title()
+    if person2 == RANDOM_TAG:
+        person2 = random.choice(VALID_NAMES).title()
 
     homosexual = False   # 'homosexual' refers to whether the two partners are the same sex.
     gay = False   # 'gay' refers to whether the two partners are men.
@@ -349,7 +358,6 @@ class Markov():
         """Fixes the memers.json file if necessary by merging all the models in PEOPLE_REPO to a new memers.json"""
         if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
             models = generate_models(PEOPLE_REPO, VALID_NAMES)
-            print(models)
             memers_model = markovify.combine(models)
             memers_json = memers_model.to_json()
             with open(f"{PEOPLE_REPO}memers.json", 'w') as json_file:
@@ -463,6 +471,10 @@ class Markov():
     @commands.command(aliases=['ff'])
     async def fanfic(self, ctx, person1=None, person2=None, gender1='man', gender2='woman'):
         """Generates a paragraph of Markov sentences based on works from fanfiction.net."""
+        if person1 == REFLEXIVE_TAG:
+            person1 = ctx.author.name
+        if person2 == REFLEXIVE_TAG:
+            person2 = ctx.author.name
         out = generate_fanfic(person1, person2, gender1, gender2)
         await ctx.send(out)
 
