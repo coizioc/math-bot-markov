@@ -21,6 +21,7 @@ MAX_NUM_OF_NAMES = 10
 MAX_MARKOV_ATTEMPTS = 10
 REFLEXIVE_TAG = 'me'
 RANDOM_TAG = 'rand'
+ALL_TAG = 'all'
 
 RESOURCES_REPO = './subs/markov/resources/'
 PEOPLE_REPO = f'{RESOURCES_REPO}people/'
@@ -93,6 +94,10 @@ def parse_names(names_input, valid_names):
         current_name = []
         if name == RANDOM_TAG:
             names.append(random.choice(VALID_NAMES))
+        elif name == ALL_TAG:
+            people = random.sample(VALID_NAMES, 5)
+            for person in people:
+                names.append(person)
         else:
             for valid_name in valid_names:
                 if name == valid_name:
@@ -212,10 +217,6 @@ def update_markov_people(new_messages, authors):
                 return f"Error: Unknown Error."
         else:
             print('User skipped due to inactivity.')
-    print("Updating Memers model...")
-    memers_model = markovify.combine(models)
-    with open(f"{PEOPLE_REPO}memers.json", 'w') as json_file:
-        ujson.dump(memers_model.to_json(), json_file)
     print("Update Successful.")
     return f"Corpus successfully updated with {num_of_messages} new messages, " \
            f"{num_of_updated_names} updated people, and {num_of_new_names} new people."
@@ -343,38 +344,26 @@ class Markov():
     @commands.group(aliases=['mk', 'rmk'], invoke_without_command=True)
     async def markov(self, ctx, person=REFLEXIVE_TAG, root=None):
         """Generates a Markov chain based on a user's previous messages."""
+        if person == 'memers':
+            person = ALL_TAG
         if REFLEXIVE_TAG in person:
             person = person.replace(REFLEXIVE_TAG, ctx.author.name)
         out = generate_markov(person, root)
         user_tags = set([c for c in out[0].split(' ') if c[0:2] == '<@'])
-        guilds = self.bot.guilds
-        bot_self = discord.Member
-        for guild in guilds:
-            if guild.id == 339514092106678273 or guild.id == 408424622648721408:
-                bot_self = guild.me
-                for user_tag in user_tags:
-                    id = int(re.sub('\D','',user_tag))
-                    username = guild.get_member(id)
-                    if username is not None:
-                        username = username.display_name
-                        out[0] = out[0].replace(user_tag, '@' + username)
-                    elif user_tag in out[0]:
-                        out[0] = out.replace(user_tag, "@UNKNOWN_USER")
+        current_guild = ctx.message.guild
+        bot_self = current_guild.me
+        for user_tag in user_tags:
+            id = int(re.sub('\D','',user_tag))
+            username = current_guild.get_member(id)
+            if username is not None:
+                username = username.display_name
+                out[0] = out[0].replace(user_tag, '@' + username)
+            elif user_tag in out[0]:
+                out[0] = out.replace(user_tag, "@UNKNOWN_USER")
+        if person == ALL_TAG:
+            out[1] = ctx.guild.name.title()
         await bot_self.edit(nick=out[1])
         await ctx.send(out[0])
-
-    @markov.command(name='force', hidden=True)
-    async def _force(self, ctx):
-        """Fixes the memers.json file if necessary by merging all the models in PEOPLE_REPO to a new memers.json"""
-        if ctx.author.id == MARKOV_MODULE_CREATORS_ID:
-            models = generate_models(PEOPLE_REPO, VALID_NAMES)
-            memers_model = markovify.combine(models)
-            memers_json = memers_model.to_json()
-            with open(f"{PEOPLE_REPO}memers.json", 'w') as json_file:
-                ujson.dump(memers_json, json_file)
-            ctx.send('memers.json sucessfully updated.')
-        else:
-            await ctx.send(PERMISSION_ERROR_STRING)
 
     @markov.command(name='rename', hidden=True)
     async def _rename(self, ctx, before_name, after_name):
